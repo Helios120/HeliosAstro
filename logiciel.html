@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>HeliosAstro — Logiciel astrologique</title>
+  <meta name="description" content="Démo astrologique HeliosAstro : roue zodiacale, positions planétaires simplifiées et export SVG." />
+  <style>
+    :root{
+      --bg:#05060a; --panel:#0b0e18; --panel2:#0f1322;
+      --text:#f5f5f7; --muted:#9ca3af; --line:rgba(255,255,255,.10);
+      --gold:#ffb300; --gold2:#ffda6b;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;font-family:Segoe UI,Arial,sans-serif;color:var(--text);
+      background:radial-gradient(circle at top,#1a2040 0%,#05060a 55%);
+    }
+    a{text-decoration:none;color:inherit}
+    .wrap{max-width:1180px;margin:0 auto;padding:18px}
+    .topbar{
+      position:sticky;top:0;z-index:20;
+      background:rgba(5,6,10,.76);backdrop-filter:blur(10px);
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    .nav{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;padding:14px 18px}
+    .brand{display:flex;align-items:center;gap:12px}
+    .brand img{width:50px;height:50px;border-radius:14px;background:#000;border:1px solid rgba(255,255,255,.12);object-fit:contain}
+    .brand b{display:block;font-size:22px;letter-spacing:.14em;text-transform:uppercase;line-height:1}
+    .brand span{display:block;color:var(--muted);font-size:12px;margin-top:5px}
+    .menu{display:flex;gap:14px;flex-wrap:wrap}
+    .menu a{color:var(--gold2);font-weight:800;font-size:14px}
+
+    .hero{
+      background:linear-gradient(180deg,rgba(15,19,34,.95),rgba(11,14,24,.92));
+      border:1px solid var(--line);border-radius:22px;padding:24px;margin-top:18px;
+    }
+    h1{margin:0 0 10px;font-size:40px;line-height:1.05}
+    .lead{margin:0;color:var(--muted);font-size:16px;line-height:1.7}
+
+    .layout{display:grid;grid-template-columns:360px 1fr;gap:18px;margin-top:18px}
+    .panel{
+      background:linear-gradient(180deg,rgba(15,19,34,.95),rgba(11,14,24,.92));
+      border:1px solid var(--line);border-radius:20px;padding:18px;
+    }
+    label{display:block;color:var(--muted);font-size:.78rem;margin:8px 0 4px}
+    input{
+      width:100%;padding:10px;border-radius:12px;border:1px solid rgba(255,255,255,.14);
+      background:#050711;color:var(--text);font-size:.92rem
+    }
+    .row{display:flex;gap:8px}
+    .row>div{flex:1}
+    .btns{display:flex;gap:10px;margin-top:12px}
+    button{
+      flex:1;border:none;border-radius:999px;padding:11px 12px;font-weight:900;cursor:pointer
+    }
+    .primary{background:var(--gold);color:#111}
+    .secondary{background:transparent;color:var(--gold2);border:1px solid rgba(255,218,107,.55)}
+    .hint{margin-top:10px;color:var(--muted);font-size:.8rem;line-height:1.45}
+
+    .chartbox{
+      background:radial-gradient(circle at center,#161a28 0,#05060a 60%);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:16px;min-height:620px;display:flex;align-items:center;justify-content:center;overflow:hidden
+    }
+    svg{width:100%;height:100%;max-height:800px}
+
+    .tablewrap{margin-top:16px;overflow:auto;border:1px solid rgba(255,255,255,.10);border-radius:14px}
+    table{width:100%;border-collapse:collapse}
+    th,td{padding:8px;border-bottom:1px solid rgba(255,255,255,.08);font-size:.88rem}
+    th{text-align:left}
+    .muted{color:var(--muted)}
+    .footer{padding:24px 0 10px;text-align:center;color:#8d96a7;font-size:13px}
+
+    @media (max-width:950px){
+      .layout{grid-template-columns:1fr}
+      h1{font-size:32px}
+      .chartbox{min-height:500px}
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="nav">
+      <div class="brand">
+        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjAshaLROEO5is-liQxdB5gnv3U_zNJ0Sl-a4IryxQyYeGLMXrse7T7H8Uds_IGgMW6CEWivyx6DHZKEBDbxmz2wmxZ9IOvLXkpwYbUeAOilk2l7iD5pd0IZzqWYsBWEJhRc_A3oNcINe697zbZS-qmNk4R_KGdDi4-RA_xk2B_3tibKfBgThxuY1s_FQo/s320/Griffon%20majestueux%20et%20%C3%A9toile%20c%C3%A9leste.png" alt="HeliosAstro">
+        <div>
+          <b>HeliosAstro</b>
+          <span>Logiciel astrologique — démo</span>
+        </div>
+      </div>
+      <nav class="menu">
+        <a href="./">Accueil</a>
+        <a href="mailto:heliosphotonic@gmail.com">Contact</a>
+      </nav>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <section class="hero">
+      <h1>Logiciel astrologique HeliosAstro</h1>
+      <p class="lead">
+        Démonstration visuelle de la roue zodiacale avec positions planétaires simplifiées,
+        export SVG et base évolutive pour la version professionnelle.
+      </p>
+    </section>
+
+    <section class="layout">
+      <aside class="panel">
+        <label>Nom (affichage)</label>
+        <input id="name" placeholder="Ex. Thierry">
+
+        <div class="row">
+          <div>
+            <label>Date</label>
+            <input id="date" type="date">
+          </div>
+          <div>
+            <label>Heure</label>
+            <input id="time" type="time" value="12:00">
+          </div>
+        </div>
+
+        <label>Lieu (affichage)</label>
+        <input id="place" placeholder="Ville, pays">
+
+        <div class="row">
+          <div>
+            <label>Rotation roue (°)</label>
+            <input id="rot" type="number" value="90">
+          </div>
+          <div>
+            <label>Taille police</label>
+            <input id="fs" type="number" value="13">
+          </div>
+        </div>
+
+        <div class="btns">
+          <button class="primary" id="run">Tracer</button>
+          <button class="secondary" id="export">Exporter SVG</button>
+        </div>
+
+        <div class="hint">
+          Cette version trace une roue et calcule une démo planétaire simplifiée en JavaScript.
+          La version PRO branchera des éphémérides précises.
+        </div>
+
+        <div class="btns" style="margin-top:16px">
+          <a class="primary" style="text-align:center;padding:11px 12px;border-radius:999px;font-weight:900;background:#ffb300;color:#111" href="https://www.paypal.com/ncp/payment/Z3SZPE6NUZYKG" target="_blank" rel="noopener">Transit 25€</a>
+          <a class="secondary" style="text-align:center;padding:11px 12px;border-radius:999px;font-weight:900;color:#ffda6b;border:1px solid rgba(255,218,107,.55)" href="https://www.paypal.com/ncp/payment/7HTYFEY8JA8EN" target="_blank" rel="noopener">Révolution 35€</a>
+        </div>
+      </aside>
+
+      <section class="panel">
+        <div class="chartbox">
+          <svg id="svg" viewBox="0 0 800 800"></svg>
+        </div>
+
+        <div class="tablewrap">
+          <table id="tbl"></table>
+        </div>
+      </section>
+    </section>
+
+    <div class="footer">© HeliosAstro</div>
+  </div>
+
+  <script>
+    const BG = "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjr3UDsWZui2auoIgF1R9TzUUw_e3o8XxNxR2N0grOWppwI50XIftLQKMwq410Rc1hZC0Pke3GYniZswYSFDSnuoDk5oKUQAZ-BXsZd4uRZJn60uQVZyXjHzUBs1aYs7hBa9dXj6xos2kf43Bg4TTtTwWsr6vjU7HQ4jQAZDA913n3R8R9MfgfLoIVmR_A/s1800/zodiaque_1800x1600.png";
+    const BODIES = [
+      {name:"Soleil",   color:"#facc15", base:280, speed:.9856},
+      {name:"Lune",     color:"#e5e7eb", base:218, speed:13.1764},
+      {name:"Mercure",  color:"#fb923c", base:75,  speed:4.0923},
+      {name:"Vénus",    color:"#fbbf24", base:20,  speed:1.6021},
+      {name:"Mars",     color:"#ef4444", base:150, speed:.5240},
+      {name:"Jupiter",  color:"#a78bfa", base:34,  speed:.0831},
+      {name:"Saturne",  color:"#60a5fa", base:50,  speed:.0335},
+      {name:"Uranus",   color:"#22c55e", base:314, speed:.0117},
+      {name:"Neptune",  color:"#38bdf8", base:304, speed:.0060},
+      {name:"Pluton",   color:"#f472b6", base:238, speed:.0040}
+    ];
+    const SIGNS = ["Bélier","Taureau","Gémeaux","Cancer","Lion","Vierge","Balance","Scorpion","Sagittaire","Capricorne","Verseau","Poissons"];
+    const NS="http://www.w3.org/2000/svg", XL="http://www.w3.org/1999/xlink";
+
+    function rev360(x){ x%=360; if(x<0)x+=360; return x; }
+    function daysSinceJ2000(d){
+      const j2000 = Date.UTC(2000,0,1,12,0,0)/86400000;
+      return d.getTime()/86400000 - j2000;
+    }
+    function degToSign(lon){
+      lon = rev360(lon);
+      const si = Math.floor(lon/30);
+      const within = lon - si*30;
+      const deg = Math.floor(within);
+      const min = Math.round((within-deg)*60);
+      return `${deg}°${String(min).padStart(2,"0")} ${SIGNS[si]}`;
+    }
+    function el(svg,tag,attrs){
+      const e=document.createElementNS(NS,tag);
+      for(const k in attrs){
+        if(k==="href") e.setAttributeNS(XL,"href",attrs[k]);
+        else e.setAttribute(k,attrs[k]);
+      }
+      svg.appendChild(e);
+      return e;
+    }
+    function clear(svg){ while(svg.firstChild) svg.removeChild(svg.firstChild); }
+
+    function computePositions(dt){
+      const D = daysSinceJ2000(dt);
+      return BODIES.map(p => ({
+        ...p,
+        lon: rev360(p.base + p.speed * D)
+      }));
+    }
+
+    function drawWheel(data){
+      const svg = document.getElementById("svg");
+      clear(svg);
+      const name = document.getElementById("name").value.trim() || "Consultant";
+      const place = document.getElementById("place").value.trim();
+      const date = document.getElementById("date").value;
+      const time = document.getElementById("time").value;
+      const rot = parseFloat(document.getElementById("rot").value || "90");
+      const fs = parseFloat(document.getElementById("fs").value || "13");
+
+      const cx=400, cy=400;
+      el(svg,"rect",{x:0,y:0,width:800,height:800,fill:"#05060a"});
+      el(svg,"image",{href:BG,x:0,y:0,width:800,height:800,opacity:.95});
+      el(svg,"circle",{cx,cy,r:16,fill:"#facc15",stroke:"#fbbf24","stroke-width":3});
+      el(svg,"circle",{cx,cy,r:270,fill:"none",stroke:"rgba(255,255,255,.14)","stroke-width":1});
+      el(svg,"circle",{cx,cy,r:340,fill:"none",stroke:"rgba(255,255,255,.10)","stroke-width":1});
+
+      data.forEach(p=>{
+        const ang = (p.lon + rot) * Math.PI/180;
+        const r = 270;
+        const x = cx + r*Math.cos(ang);
+        const y = cy - r*Math.sin(ang);
+        el(svg,"line",{x1:cx,y1:cy,x2:x,y2:y,stroke:"rgba(255,255,255,.20)","stroke-width":1});
+        el(svg,"circle",{cx:x,cy:y,r:6,fill:p.color,stroke:"#020617","stroke-width":1});
+
+        const txr=355;
+        const tx = cx + txr*Math.cos(ang);
+        const ty = cy - txr*Math.sin(ang);
+        const t = el(svg,"text",{x:tx,y:ty,fill:"#f5f5f7","font-size":fs,"text-anchor":"middle","dominant-baseline":"middle"});
+        t.textContent = p.name;
+      });
+
+      const sub = [date ? date.split("-").reverse().join("/") : "", time, place].filter(Boolean).join(" • ");
+      el(svg,"text",{x:400,y:690,fill:"#fff","font-size":16,"font-weight":"800","text-anchor":"middle"}).textContent = name;
+      el(svg,"text",{x:400,y:714,fill:"#d1d5db","font-size":12,"text-anchor":"middle"}).textContent = sub;
+    }
+
+    function renderTable(data){
+      const tbl = document.getElementById("tbl");
+      let html = "<tr><th>Corps</th><th>Position</th><th>Longitude</th></tr>";
+      data.forEach(p=>{
+        html += `<tr><td><b>${p.name}</b></td><td>${degToSign(p.lon)}</td><td class="muted">${p.lon.toFixed(2)}°</td></tr>`;
+      });
+      tbl.innerHTML = html;
+    }
+
+    function run(){
+      const d = document.getElementById("date").value;
+      const t = document.getElementById("time").value || "12:00";
+      if(!d){ alert("Renseigne la date."); return; }
+      const [Y,M,D] = d.split("-").map(Number);
+      const [h,m] = t.split(":").map(Number);
+      const dt = new Date(Date.UTC(Y,M-1,D,h,m,0));
+      const data = computePositions(dt);
+      drawWheel(data);
+      renderTable(data);
+    }
+
+    function exportSVG(){
+      const svg = document.getElementById("svg");
+      if(!svg.firstChild) return;
+      const source = new XMLSerializer().serializeToString(svg);
+      const blob = new Blob(['<?xml version="1.0"?>\n', source], {type:"image/svg+xml;charset=utf-8"});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "heliosastro-wheel.svg";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    document.getElementById("run").addEventListener("click", run);
+    document.getElementById("export").addEventListener("click", exportSVG);
+
+    (function init(){
+      const now = new Date();
+      const yyyy = now.getFullYear();
+      const mm = String(now.getMonth()+1).padStart(2,"0");
+      const dd = String(now.getDate()).padStart(2,"0");
+      document.getElementById("date").value = `${yyyy}-${mm}-${dd}`;
+      run();
+    })();
+  </script>
+</body>
+</html>
