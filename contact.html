@@ -7,13 +7,17 @@
   <meta name="description" content="Contactez HeliosAstro pour une analyse astrologique personnalisée." />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://heliosastro.com/contact.html" />
+  <meta property="og:image" content="https://heliosastro.com/images/og-image.jpg" />
   <style>
     body{margin:0;font-family:Segoe UI,Arial,sans-serif;background:radial-gradient(circle at top,#1a2040 0%,#05060a 55%);color:#f5f5f7}
     a{text-decoration:none;color:inherit}
     .wrap{max-width:900px;margin:0 auto;padding:0 18px}
-    .topbar{background:rgba(5,6,10,.78);border-bottom:1px solid rgba(255,255,255,.06);padding:14px 0}
+    .topbar{background:rgba(5,6,10,.82);border-bottom:1px solid rgba(255,255,255,.06);padding:14px 0}
     .nav{display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap}
-    .brand{font-size:24px;font-weight:900;letter-spacing:.14em;text-transform:uppercase}
+    .brand{display:flex;align-items:center;gap:14px}
+    .brand img{width:72px;height:72px;border-radius:16px;object-fit:contain;background:#000;padding:6px}
+    .brand-text b{display:block;font-size:24px;letter-spacing:.14em;text-transform:uppercase;line-height:1}
+    .brand-text span{display:block;margin-top:6px;color:#a4acba;font-size:12px}
     .menu{display:flex;gap:14px;flex-wrap:wrap}
     .menu a{color:#ffda6b;font-weight:800;font-size:14px}
     .card{
@@ -23,13 +27,20 @@
     h1{font-size:36px;margin:0 0 12px}
     p{color:#a4acba;line-height:1.7}
     .btn{display:inline-block;padding:13px 18px;border-radius:999px;font-weight:900;background:#ffb300;color:#111}
+    @media (max-width:900px){.brand img{width:62px;height:62px}}
   </style>
 </head>
 <body>
   <div class="topbar">
     <div class="wrap">
       <div class="nav">
-        <div class="brand">HeliosAstro</div>
+        <div class="brand">
+          <img src="images/logo-heliosastro.png" alt="Logo HeliosAstro">
+          <div class="brand-text">
+            <b>HeliosAstro</b>
+            <span>Astrologie héliocentrique • Géométrie sacrée • Analyse avancée</span>
+          </div>
+        </div>
         <div class="menu">
           <a href="index.html">Accueil</a>
           <a href="offres.html">Offres</a>
