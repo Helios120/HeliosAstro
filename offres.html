@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HeliosAstro — Offres astrologiques</title>
+  <style>
+    body{margin:0;font-family:Segoe UI,Arial,sans-serif;background:radial-gradient(circle at top,#1a2040 0%,#05060a 55%);color:#f5f5f7}
+    a{text-decoration:none;color:inherit}
+    .wrap{max-width:1100px;margin:0 auto;padding:0 18px}
+    .topbar{background:rgba(5,6,10,.74);border-bottom:1px solid rgba(255,255,255,.06);padding:14px 0}
+    .nav{display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap}
+    .brand{font-size:24px;font-weight:900;letter-spacing:.14em;text-transform:uppercase}
+    .menu{display:flex;gap:14px;flex-wrap:wrap}
+    .menu a{color:#ffda6b;font-weight:800;font-size:14px}
+    h1{font-size:40px;margin:30px 0 12px}
+    p{color:#a4acba;line-height:1.7}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin:26px 0}
+    .card{
+      background:linear-gradient(180deg,rgba(15,19,34,.96),rgba(11,14,24,.93));
+      border:1px solid rgba(255,255,255,.10);border-radius:20px;padding:22px;
+    }
+    .tag{font-size:12px;color:#ffda6b;font-weight:800;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px}
+    h2{margin:0 0 8px;font-size:24px}
+    .price{font-size:34px;font-weight:900;margin:0 0 10px}
+    .btn{display:inline-block;margin-top:16px;padding:13px 18px;border-radius:999px;font-weight:900;background:#ffb300;color:#111}
+    @media (max-width:900px){.grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="wrap">
+      <div class="nav">
+        <div class="brand">HeliosAstro</div>
+        <div class="menu">
+          <a href="index.html">Accueil</a>
+          <a href="logiciel.html">Logiciel</a>
+          <a href="livre.html">Livre</a>
+          <a href="contact.html">Contact</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <h1>Offres astrologiques</h1>
+    <p>Choisis l’analyse qui correspond à ton besoin : transits, révolution solaire ou export graphique.</p>
+
+    <div class="grid">
+      <div class="card">
+        <div class="tag">Analyse</div>
+        <h2>Transit astrologique</h2>
+        <div class="price">25€</div>
+        <p>Étude des influences planétaires sur les 3 prochains mois. Repérage des périodes favorables, tensions et ouvertures.</p>
+        <a class="btn" href="https://www.paypal.com/ncp/payment/Z3SZPE6NUZYKG" target="_blank" rel="noopener">Commander — 25€</a>
+      </div>
+
+      <div class="card">
+        <div class="tag">Analyse annuelle</div>
+        <h2>Révolution solaire</h2>
+        <div class="price">35€</div>
+        <p>Lecture astrologique complète de l’année à venir, basée sur le retour solaire et les grands axes d’évolution.</p>
+        <a class="btn" href="https://www.paypal.com/ncp/payment/7HTYFEY8JA8EN" target="_blank" rel="noopener">Commander — 35€</a>
+      </div>
+
+      <div class="card">
+        <div class="tag">Graphique</div>
+        <h2>Export SVG</h2>
+        <div class="price">5€</div>
+        <p>Export haute définition de votre carte astrologique en format vectoriel pour impression ou usage personnel.</p>
+        <a class="btn" href="https://www.paypal.com/ncp/payment/VQHAY46ZZU2YN" target="_blank" rel="noopener">Télécharger — 5€</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
