@@ -7,13 +7,22 @@
   <meta name="description" content="Offres HeliosAstro : transit astrologique, révolution solaire, export SVG et analyses personnalisées." />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://heliosastro.com/offres.html" />
+  <meta property="og:image" content="https://heliosastro.com/images/og-image.jpg" />
   <style>
-    body{margin:0;font-family:Segoe UI,Arial,sans-serif;background:radial-gradient(circle at top,#1a2040 0%,#05060a 55%);color:#f5f5f7}
+    :root{
+      --bg:#05060a; --panel:#0f1322; --panel2:#0b0e18; --text:#f5f5f7; --muted:#a4acba;
+      --gold:#ffb300; --gold2:#ffda6b;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Segoe UI,Arial,sans-serif;background:radial-gradient(circle at top,#1a2040 0%,#05060a 55%);color:var(--text)}
     a{text-decoration:none;color:inherit}
     .wrap{max-width:1100px;margin:0 auto;padding:0 18px}
-    .topbar{background:rgba(5,6,10,.78);border-bottom:1px solid rgba(255,255,255,.06)}
+    .topbar{background:rgba(5,6,10,.82);border-bottom:1px solid rgba(255,255,255,.06)}
     .nav{display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap;padding:14px 0}
-    .brand{font-size:24px;font-weight:900;letter-spacing:.14em;text-transform:uppercase}
+    .brand{display:flex;align-items:center;gap:14px}
+    .brand img{width:72px;height:72px;border-radius:16px;object-fit:contain;background:#000;padding:6px}
+    .brand-text b{display:block;font-size:24px;letter-spacing:.14em;text-transform:uppercase;line-height:1}
+    .brand-text span{display:block;margin-top:6px;color:var(--muted);font-size:12px}
     .menu{display:flex;gap:14px;flex-wrap:wrap}
     .menu a{color:#ffda6b;font-weight:800;font-size:14px}
     h1{font-size:40px;margin:30px 0 12px}
@@ -24,14 +33,20 @@
     h2{margin:0 0 8px;font-size:24px}
     .price{font-size:34px;font-weight:900;margin:0 0 10px}
     .btn{display:inline-block;margin-top:16px;padding:13px 18px;border-radius:999px;font-weight:900;background:#ffb300;color:#111}
-    @media (max-width:900px){.grid{grid-template-columns:1fr}}
+    @media (max-width:900px){.grid{grid-template-columns:1fr}.brand img{width:62px;height:62px}}
   </style>
 </head>
 <body>
   <div class="topbar">
     <div class="wrap">
       <div class="nav">
-        <div class="brand">HeliosAstro</div>
+        <div class="brand">
+          <img src="images/logo-heliosastro.png" alt="Logo HeliosAstro">
+          <div class="brand-text">
+            <b>HeliosAstro</b>
+            <span>Astrologie héliocentrique • Géométrie sacrée • Analyse avancée</span>
+          </div>
+        </div>
         <div class="menu">
           <a href="index.html">Accueil</a>
           <a href="logiciel.html">Logiciel</a>
