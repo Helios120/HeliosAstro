@@ -3,67 +3,349 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Logiciel astrologique en ligne | HeliosAstro</title>
-  <meta name="description" content="Découvrez le logiciel astrologique HeliosAstro : cercle zodiacal dynamique, visualisation de carte du ciel, positions planétaires et export SVG." />
-  <meta name="keywords" content="logiciel astrologique, logiciel astrologique en ligne, carte du ciel, astrologie héliocentrique" />
+  <title>HeliosAstro — Logiciel astrologique</title>
+  <meta name="description" content="Logiciel astrologique HeliosAstro : cercle zodiacal dynamique, positions planétaires, export SVG et visualisation astrologique." />
+  <meta name="keywords" content="logiciel astrologique, carte du ciel, cercle zodiacal, positions planétaires, thème astral en ligne" />
+  <meta name="author" content="HeliosAstro" />
   <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://heliosastro.com/logiciel-astrologique.html" />
+  <link rel="canonical" href="https://heliosastro.com/logiciel.html" />
 
-  <meta property="og:title" content="Logiciel astrologique en ligne | HeliosAstro" />
-  <meta property="og:description" content="Cercle zodiacal, visualisation de carte du ciel et positions planétaires." />
-  <meta property="og:url" content="https://heliosastro.com/logiciel-astrologique.html" />
   <meta property="og:type" content="website" />
+  <meta property="og:title" content="Logiciel astrologique en ligne | HeliosAstro" />
+  <meta property="og:description" content="Cercle zodiacal dynamique, positions planétaires, export SVG et visualisation astrologique." />
+  <meta property="og:url" content="https://heliosastro.com/logiciel.html" />
   <meta property="og:image" content="https://heliosastro.com/images/og-image.jpg" />
 
   <style>
-    body{margin:0;font-family:Segoe UI,Arial,sans-serif;background:radial-gradient(circle at top,#1a2040 0%,#05060a 55%);color:#f5f5f7}
+    :root{
+      --bg:#05060a; --panel:#0f1322; --panel2:#0b0e18; --text:#f5f5f7; --muted:#a4acba;
+      --line:rgba(255,255,255,.10); --gold:#ffb300; --gold2:#ffda6b; --shadow:0 20px 44px rgba(0,0,0,.42);
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Segoe UI,Arial,sans-serif;color:var(--text);background:radial-gradient(circle at top,#1a2040 0%,#05060a 55%)}
     a{text-decoration:none;color:inherit}
-    .wrap{max-width:1100px;margin:0 auto;padding:0 18px}
+    .wrap{max-width:1180px;margin:0 auto;padding:0 18px}
     .topbar{background:rgba(5,6,10,.78);border-bottom:1px solid rgba(255,255,255,.06)}
     .nav{display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap;padding:14px 0}
-    .brand{font-size:24px;font-weight:900;letter-spacing:.14em;text-transform:uppercase}
+    .brand{display:flex;align-items:center;gap:14px}
+    .brand img{width:58px;height:58px;border-radius:14px;object-fit:cover;border:1px solid rgba(255,255,255,.12)}
+    .brand b{display:block;font-size:24px;letter-spacing:.14em;text-transform:uppercase;line-height:1}
+    .brand span{display:block;margin-top:6px;color:var(--muted);font-size:12px}
     .menu{display:flex;gap:14px;flex-wrap:wrap}
     .menu a{color:#ffda6b;font-weight:800;font-size:14px}
-    .section{padding:28px 0}
-    .card{
-      background:linear-gradient(180deg,#0f1322,#0b0e18);
-      border:1px solid rgba(255,255,255,.08);
-      border-radius:20px;padding:24px;box-shadow:0 20px 44px rgba(0,0,0,.42)
+    h1{font-size:40px;margin:30px 0 12px}
+    p{color:var(--muted);line-height:1.7}
+    .layout{display:grid;grid-template-columns:360px 1fr;gap:18px;margin:24px 0}
+    .panel{
+      background:linear-gradient(180deg,var(--panel),var(--panel2));
+      border:1px solid rgba(255,255,255,.10);border-radius:20px;padding:20px;box-shadow:var(--shadow)
     }
-    h1{font-size:42px;margin:0 0 12px}
-    p{color:#a4acba;line-height:1.7}
-    .btn{display:inline-block;padding:13px 18px;border-radius:999px;font-weight:900;background:#ffb300;color:#111}
+    label{display:block;color:var(--muted);font-size:.78rem;margin:8px 0 4px}
+    input{
+      width:100%;padding:10px;border-radius:12px;border:1px solid rgba(255,255,255,.14);
+      background:#050711;color:var(--text);font-size:.92rem;
+    }
+    .row{display:flex;gap:8px}
+    .row>div{flex:1}
+    .buttons{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+    .btn{
+      display:inline-block;padding:13px 18px;border-radius:999px;font-weight:900;font-size:14px;cursor:pointer;border:none
+    }
+    .btn-primary{background:var(--gold);color:#111}
+    .btn-ghost{border:1px solid rgba(255,218,107,.55);color:var(--gold2);background:transparent}
+    .hint{margin-top:10px;color:var(--muted);font-size:.8rem;line-height:1.45}
+    .meta{margin-top:12px;color:var(--muted);font-size:14px}
+    .chartbox{
+      background:radial-gradient(circle at center,#11183a,#02030a);
+      border:1px solid rgba(255,255,255,.12);border-radius:16px;min-height:640px;
+      display:flex;align-items:center;justify-content:center;overflow:hidden
+    }
+    svg{width:100%;height:100%;max-height:820px}
+    .tablewrap{margin-top:16px;overflow:auto;border:1px solid rgba(255,255,255,.10);border-radius:14px}
+    table{width:100%;border-collapse:collapse}
+    th,td{padding:8px;border-bottom:1px solid rgba(255,255,255,.08);font-size:.88rem;text-align:left}
+    @media (max-width:1000px){.layout{grid-template-columns:1fr}}
   </style>
 </head>
 <body>
+
   <div class="topbar">
     <div class="wrap">
       <div class="nav">
-        <div class="brand">HeliosAstro</div>
+        <div class="brand">
+          <img src="images/mandala-sacree.png" alt="HeliosAstro">
+          <div>
+            <b>HeliosAstro</b>
+            <span>Astrologie héliocentrique • Géométrie sacrée • Analyse avancée</span>
+          </div>
+        </div>
         <div class="menu">
           <a href="index.html">Accueil</a>
-          <a href="logiciel.html">Logiciel complet</a>
-          <a href="theme-astral-gratuit.html">Thème astral gratuit</a>
+          <a href="offres.html">Offres</a>
+          <a href="livre.html">Livre</a>
           <a href="contact.html">Contact</a>
         </div>
       </div>
     </div>
   </div>
 
-  <section class="section">
-    <div class="wrap">
-      <div class="card">
-        <h1>Logiciel astrologique en ligne</h1>
-        <p>
-          HeliosAstro propose un logiciel astrologique en ligne permettant de visualiser un cercle zodiacal,
-          les positions planétaires et une représentation graphique de la carte du ciel.
-        </p>
-        <p>
-          La version avancée inclut export SVG, visualisation dynamique et possibilité de connexion à une API d’éphémérides.
-        </p>
-        <a class="btn" href="logiciel.html">Accéder au logiciel</a>
-      </div>
+  <div class="wrap">
+    <h1>Logiciel astrologique HeliosAstro</h1>
+    <p>Affichage dynamique du cercle zodiacal, calcul simplifié des positions planétaires et export SVG.</p>
+
+    <div class="layout">
+      <aside class="panel">
+        <label>Nom (affichage)</label>
+        <input id="name" placeholder="Ex. Thierry">
+
+        <div class="row">
+          <div>
+            <label>Date</label>
+            <input id="date" type="date">
+          </div>
+          <div>
+            <label>Heure</label>
+            <input id="time" type="time" value="12:00">
+          </div>
+        </div>
+
+        <label>Lieu (affichage)</label>
+        <input id="place" placeholder="Ville, pays">
+
+        <div class="row">
+          <div>
+            <label>Fuseau horaire</label>
+            <input id="tz" placeholder="+01:00" value="+01:00">
+          </div>
+          <div>
+            <label>Rotation roue (°)</label>
+            <input id="rot" type="number" value="90">
+          </div>
+        </div>
+
+        <div class="row">
+          <div>
+            <label>Taille police</label>
+            <input id="fs" type="number" value="13">
+          </div>
+          <div>
+            <label>API éphémérides</label>
+            <input id="apiUrl" placeholder="https://ton-api/chart">
+          </div>
+        </div>
+
+        <div class="buttons">
+          <button class="btn btn-primary" id="runBtn">Tracer la carte</button>
+          <button class="btn btn-ghost" id="exportBtn">Exporter SVG</button>
+        </div>
+
+        <div class="hint">Si l’API ne répond pas, le logiciel passe automatiquement en mode démo.</div>
+        <div class="meta" id="statusText">En attente…</div>
+      </aside>
+
+      <section class="panel">
+        <div class="chartbox">
+          <svg id="chartSvg" viewBox="0 0 800 800"></svg>
+        </div>
+        <div class="tablewrap">
+          <table id="planetTable"></table>
+        </div>
+      </section>
     </div>
-  </section>
+  </div>
+
+  <script>
+    const BG_URL = "images/zodiaque-modele.png";
+    const DEMO_BODIES = [
+      { name:"Soleil", color:"#facc15", base:280, speed:0.9856 },
+      { name:"Lune", color:"#e5e7eb", base:218, speed:13.1764 },
+      { name:"Mercure", color:"#fb923c", base:75, speed:4.0923 },
+      { name:"Vénus", color:"#fbbf24", base:20, speed:1.6021 },
+      { name:"Mars", color:"#ef4444", base:150, speed:0.5240 },
+      { name:"Jupiter", color:"#a78bfa", base:34, speed:0.0831 },
+      { name:"Saturne", color:"#60a5fa", base:50, speed:0.0335 },
+      { name:"Uranus", color:"#22c55e", base:314, speed:0.0117 },
+      { name:"Neptune", color:"#38bdf8", base:304, speed:0.0060 },
+      { name:"Pluton", color:"#f472b6", base:238, speed:0.0040 }
+    ];
+
+    const SIGNS = ["Bélier","Taureau","Gémeaux","Cancer","Lion","Vierge","Balance","Scorpion","Sagittaire","Capricorne","Verseau","Poissons"];
+    const NS = "http://www.w3.org/2000/svg";
+    const XL = "http://www.w3.org/1999/xlink";
+
+    function rev360(x){ x%=360; if(x<0)x+=360; return x; }
+    function degToSign(lon){
+      lon = rev360(lon);
+      const si = Math.floor(lon / 30);
+      const within = lon - si * 30;
+      const deg = Math.floor(within);
+      const min = Math.round((within - deg) * 60);
+      return `${deg}°${String(min).padStart(2,"0")} ${SIGNS[si]}`;
+    }
+    function daysSinceJ2000(d){
+      const j2000 = Date.UTC(2000,0,1,12,0,0) / 86400000;
+      return d.getTime()/86400000 - j2000;
+    }
+    function parseTZOffset(tz){
+      const m = (tz || "").trim().match(/^([+-])(\d{2}):(\d{2})$/);
+      if(!m) return null;
+      const sign = m[1] === "-" ? -1 : 1;
+      return sign * (parseInt(m[2],10) * 60 + parseInt(m[3],10));
+    }
+    function localToUTC(dateStr, timeStr, tzStr){
+      const [Y,M,D] = dateStr.split("-").map(Number);
+      const [h,m] = timeStr.split(":").map(Number);
+      const offsetMin = parseTZOffset(tzStr);
+      if(offsetMin === null) return new Date(Date.UTC(Y, M-1, D, h, m, 0));
+      const utcMillis = Date.UTC(Y, M-1, D, h, m, 0) - offsetMin * 60000;
+      return new Date(utcMillis);
+    }
+    function demoPositions(dt){
+      const D = daysSinceJ2000(dt);
+      return DEMO_BODIES.map(p => ({
+        name:p.name,color:p.color,lon:rev360(p.base + p.speed * D),retrograde:false
+      }));
+    }
+    async function fetchApiPositions(apiUrl, dateStr, timeStr, tzStr){
+      const utc = localToUTC(dateStr, timeStr, tzStr);
+      const iso = utc.toISOString();
+      const url = new URL(apiUrl);
+      url.searchParams.set("iso", iso);
+      const res = await fetch(url.toString());
+      if(!res.ok) throw new Error("API non disponible");
+      const json = await res.json();
+      if(!json || !json.bodies) throw new Error("Réponse API invalide");
+
+      const palette = {
+        Sun:"#facc15", Moon:"#e5e7eb", Mercury:"#fb923c", Venus:"#fbbf24", Mars:"#ef4444",
+        Jupiter:"#a78bfa", Saturn:"#60a5fa", Uranus:"#22c55e", Neptune:"#38bdf8", Pluto:"#f472b6", TrueNode:"#ffda6b"
+      };
+
+      const map = {
+        Sun:"Soleil", Moon:"Lune", Mercury:"Mercure", Venus:"Vénus", Mars:"Mars", Jupiter:"Jupiter",
+        Saturn:"Saturne", Uranus:"Uranus", Neptune:"Neptune", Pluto:"Pluton", TrueNode:"Nœud Vrai"
+      };
+
+      return Object.entries(json.bodies).map(([k,v]) => ({
+        name: map[k] || k,
+        color: palette[k] || "#ffffff",
+        lon: rev360(v.lon),
+        retrograde: !!v.retrograde
+      }));
+    }
+
+    function clearSvg(svg){ while(svg.firstChild) svg.removeChild(svg.firstChild); }
+    function makeEl(svg, tag, attrs){
+      const el = document.createElementNS(NS, tag);
+      for(const k in attrs){
+        if(k === "href") el.setAttributeNS(XL, "href", attrs[k]);
+        else el.setAttribute(k, attrs[k]);
+      }
+      svg.appendChild(el);
+      return el;
+    }
+
+    function drawChart(data){
+      const svg = document.getElementById("chartSvg");
+      clearSvg(svg);
+
+      const name = document.getElementById("name").value.trim() || "Consultant";
+      const place = document.getElementById("place").value.trim();
+      const date = document.getElementById("date").value;
+      const time = document.getElementById("time").value;
+      const rot = parseFloat(document.getElementById("rot").value || "90");
+      const fs = parseFloat(document.getElementById("fs").value || "13");
+      const cx = 400, cy = 400;
+
+      makeEl(svg,"rect",{x:0,y:0,width:800,height:800,fill:"#070b18"});
+      makeEl(svg,"image",{href:BG_URL,x:0,y:0,width:800,height:800,opacity:.88});
+      makeEl(svg,"circle",{cx,cy,r:16,fill:"#facc15",stroke:"#fbbf24","stroke-width":3});
+      makeEl(svg,"circle",{cx,cy,r:270,fill:"none",stroke:"rgba(255,255,255,.14)","stroke-width":1});
+      makeEl(svg,"circle",{cx,cy,r:340,fill:"none",stroke:"rgba(255,255,255,.10)","stroke-width":1});
+
+      data.forEach(p=>{
+        const ang = (p.lon + rot) * Math.PI / 180;
+        const r = 270;
+        const x = cx + r * Math.cos(ang);
+        const y = cy - r * Math.sin(ang);
+
+        makeEl(svg,"line",{x1:cx,y1:cy,x2:x,y2:y,stroke:"rgba(255,255,255,.20)","stroke-width":1});
+        makeEl(svg,"circle",{cx:x,cy:y,r:6,fill:p.color,stroke:"#020617","stroke-width":1});
+
+        const tx = cx + 355 * Math.cos(ang);
+        const ty = cy - 355 * Math.sin(ang);
+        const t = makeEl(svg,"text",{x:tx,y:ty,fill:"#f5f5f7","font-size":fs,"text-anchor":"middle","dominant-baseline":"middle"});
+        t.textContent = p.name + (p.retrograde ? " ℞" : "");
+      });
+
+      const t1 = makeEl(svg,"text",{x:400,y:690,fill:"#fff","font-size":16,"font-weight":"800","text-anchor":"middle"});
+      t1.textContent = name;
+
+      const t2 = makeEl(svg,"text",{x:400,y:714,fill:"#d1d5db","font-size":12,"text-anchor":"middle"});
+      t2.textContent = [date ? date.split("-").reverse().join("/") : "", time, place].filter(Boolean).join(" • ");
+    }
+
+    function renderTable(data){
+      const table = document.getElementById("planetTable");
+      let html = "<tr><th>Corps</th><th>Position</th><th>Longitude</th><th>Rétro</th></tr>";
+      data.forEach(p=>{
+        html += `<tr><td><b>${p.name}</b></td><td>${degToSign(p.lon)}</td><td>${p.lon.toFixed(2)}°</td><td>${p.retrograde ? "Oui" : "Non"}</td></tr>`;
+      });
+      table.innerHTML = html;
+    }
+
+    function exportSvg(){
+      const svg = document.getElementById("chartSvg");
+      if(!svg.firstChild) return;
+      const source = new XMLSerializer().serializeToString(svg);
+      const blob = new Blob(['<?xml version="1.0"?>\n' + source], {type:"image/svg+xml;charset=utf-8"});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "heliosastro-carte.svg";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    async function runChart(){
+      const date = document.getElementById("date").value;
+      const time = document.getElementById("time").value || "12:00";
+      const tz = document.getElementById("tz").value || "+01:00";
+      const apiUrl = document.getElementById("apiUrl").value.trim();
+      const status = document.getElementById("statusText");
+
+      if(!date){ alert("Renseigne la date."); return; }
+
+      try{
+        let data;
+        if(apiUrl){
+          status.textContent = "Connexion à l’API d’éphémérides…";
+          data = await fetchApiPositions(apiUrl, date, time, tz);
+          status.textContent = "Positions planétaires récupérées via API.";
+        } else {
+          throw new Error("Pas d’API renseignée");
+        }
+        drawChart(data);
+        renderTable(data);
+      } catch(err){
+        const dt = localToUTC(date, time, tz);
+        const data = demoPositions(dt);
+        drawChart(data);
+        renderTable(data);
+        status.textContent = "Mode démo actif : API absente ou indisponible.";
+      }
+    }
+
+    document.getElementById("runBtn").addEventListener("click", runChart);
+    document.getElementById("exportBtn").addEventListener("click", exportSvg);
+
+    (function init(){
+      const now = new Date();
+      document.getElementById("date").value = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,"0")}-${String(now.getDate()).padStart(2,"0")}`;
+      runChart();
+    })();
+  </script>
 </body>
 </html>
