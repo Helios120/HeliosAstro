@@ -3,27 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <title>HeliosAstro — Astrologie héliocentrique, logiciel astrologique et géométrie sacrée</title>
-  <meta name="description" content="HeliosAstro : astrologie héliocentrique, logiciel astrologique, thème astral, transits planétaires, révolution solaire et géométrie sacrée." />
-  <meta name="keywords" content="astrologie, logiciel astrologique, thème astral, astrologie héliocentrique, révolution solaire, transits planétaires, géométrie sacrée, carte du ciel" />
-  <meta name="author" content="HeliosAstro" />
-  <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://heliosastro.com/" />
-
-  <meta property="og:locale" content="fr_FR" />
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="HeliosAstro — Astrologie héliocentrique et logiciel astrologique" />
-  <meta property="og:description" content="Analyse astrologique, logiciel astrologique en ligne, géométrie sacrée, transits planétaires et révolution solaire." />
-  <meta property="og:url" content="https://heliosastro.com/" />
-  <meta property="og:site_name" content="HeliosAstro" />
-  <meta property="og:image" content="https://heliosastro.com/images/og-image.jpg" />
-
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="HeliosAstro — Astrologie héliocentrique et logiciel astrologique" />
-  <meta name="twitter:description" content="Analyse astrologique, logiciel astrologique en ligne, géométrie sacrée et visualisation zodiacale." />
-  <meta name="twitter:image" content="https://heliosastro.com/images/og-image.jpg" />
-
+  <title>HeliosAstro — Logiciel astrologique</title>
+  <meta name="description" content="Logiciel astrologique HeliosAstro avec base zodiacale, positions planétaires et export SVG." />
   <style>
     :root{
       --bg:#05060a;
@@ -35,354 +16,150 @@
       --gold:#ffb300;
       --gold2:#ffda6b;
       --shadow:0 20px 44px rgba(0,0,0,.42);
-      --r:22px;
-      --max:1180px;
+      --max:1240px;
     }
-
     *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
     body{
       margin:0;
       font-family:Segoe UI,Arial,sans-serif;
       color:var(--text);
       background:radial-gradient(circle at top,#1a2040 0%,#05060a 55%);
     }
-
     a{text-decoration:none;color:inherit}
-    img{display:block;max-width:100%}
     .wrap{max-width:var(--max);margin:0 auto;padding:0 18px}
-
     .topbar{
-      position:sticky;
-      top:0;
-      z-index:30;
+      position:sticky;top:0;z-index:30;
       background:rgba(5,6,10,.82);
       backdrop-filter:blur(10px);
       border-bottom:1px solid rgba(255,255,255,.06);
     }
-
     .nav{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:18px;
-      flex-wrap:wrap;
+      display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap;
       padding:14px 0;
     }
-
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:14px;
-    }
-
+    .brand{display:flex;align-items:center;gap:14px}
     .brand img{
-      width:72px;
-      height:72px;
-      border-radius:16px;
-      object-fit:contain;
-      background:#000;
-      border:1px solid rgba(255,255,255,.12);
-      box-shadow:0 12px 28px rgba(0,0,0,.35);
-      padding:6px;
+      width:72px;height:72px;border-radius:16px;object-fit:contain;background:#000;
+      border:1px solid rgba(255,255,255,.12);box-shadow:0 12px 28px rgba(0,0,0,.35);padding:6px;
     }
-
     .brand-text b{
-      display:block;
-      font-size:24px;
-      letter-spacing:.14em;
-      text-transform:uppercase;
-      line-height:1;
+      display:block;font-size:24px;letter-spacing:.14em;text-transform:uppercase;line-height:1;
     }
-
     .brand-text span{
-      display:block;
-      margin-top:6px;
-      color:var(--muted);
-      font-size:12px;
+      display:block;margin-top:6px;color:var(--muted);font-size:12px;
     }
+    .menu{display:flex;gap:14px;flex-wrap:wrap}
+    .menu a{color:var(--gold2);font-weight:800;font-size:14px}
 
-    .menu{
-      display:flex;
-      gap:14px;
-      flex-wrap:wrap;
-    }
+    .hero{padding:26px 0 8px}
+    h1{font-size:38px;margin:0 0 10px}
+    .lead{color:var(--muted);line-height:1.7;margin:0 0 18px}
 
-    .menu a{
-      color:var(--gold2);
-      font-weight:800;
-      font-size:14px;
-    }
-
-    .hero{
-      padding:34px 0 18px;
-    }
-
-    .hero-card{
+    .layout{
       display:grid;
-      grid-template-columns:1.08fr .92fr;
-      gap:24px;
-      align-items:center;
+      grid-template-columns:360px 1fr;
+      gap:18px;
+      margin:20px 0 34px;
+    }
+    .panel{
       background:linear-gradient(180deg,var(--panel),var(--panel2));
-      border:1px solid var(--line);
-      border-radius:var(--r);
-      padding:28px;
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:22px;
+      padding:20px;
       box-shadow:var(--shadow);
     }
-
-    .badge{
-      display:inline-block;
-      padding:8px 12px;
-      border-radius:999px;
-      font-size:12px;
-      font-weight:800;
-      color:var(--gold2);
-      border:1px solid rgba(255,218,107,.30);
-      background:rgba(255,218,107,.08);
-      margin-bottom:16px;
-    }
-
-    h1{
-      margin:0 0 14px;
-      font-size:46px;
-      line-height:1.02;
-      font-weight:900;
-    }
-
-    h2{
-      margin:0 0 12px;
-      font-size:30px;
-      line-height:1.1;
-    }
-
-    h3{
-      margin:0 0 8px;
-      font-size:24px;
-    }
-
-    .lead{
-      margin:0 0 18px;
-      font-size:17px;
-      line-height:1.7;
+    label{
+      display:block;
       color:var(--muted);
+      font-size:.80rem;
+      margin:10px 0 6px;
     }
-
-    .text{
-      margin:0;
-      font-size:16px;
-      line-height:1.7;
-      color:var(--muted);
+    input{
+      width:100%;
+      padding:11px 12px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,.14);
+      background:#050711;
+      color:var(--text);
+      font-size:.94rem;
     }
-
-    .pills{
+    .row{display:flex;gap:8px}
+    .row > div{flex:1}
+    .buttons{
       display:flex;
       gap:10px;
       flex-wrap:wrap;
-      margin:0 0 20px;
+      margin-top:16px;
     }
-
-    .pill{
-      padding:8px 12px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.10);
-      background:rgba(255,255,255,.04);
-      font-size:13px;
-    }
-
-    .actions{
-      display:flex;
-      gap:12px;
-      flex-wrap:wrap;
-    }
-
     .btn{
       display:inline-block;
       padding:13px 18px;
       border-radius:999px;
       font-weight:900;
       font-size:14px;
-      border:none;
       cursor:pointer;
+      border:none;
     }
-
-    .btn-primary{
-      background:var(--gold);
-      color:#111;
-    }
-
+    .btn-primary{background:var(--gold);color:#111}
     .btn-ghost{
       border:1px solid rgba(255,218,107,.55);
       color:var(--gold2);
       background:transparent;
     }
-
-    .visual{
-      padding:14px;
-      border-radius:20px;
-      border:1px solid var(--line);
-      background:radial-gradient(circle at center,rgba(255,179,0,.08),rgba(0,0,0,0) 62%);
-    }
-
-    .visual img{
-      width:100%;
-      border-radius:18px;
-      border:1px solid rgba(255,255,255,.10);
-      box-shadow:0 18px 34px rgba(0,0,0,.34);
-      object-fit:cover;
-    }
-
-    .section{
-      padding:22px 0;
-    }
-
-    .card{
-      background:linear-gradient(180deg,var(--panel),var(--panel2));
-      border:1px solid rgba(255,255,255,.08);
-      border-radius:20px;
-      padding:24px;
-      box-shadow:var(--shadow);
-    }
-
-    .offers{
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:18px;
-      margin-top:18px;
-    }
-
-    .offer{
-      background:linear-gradient(180deg,rgba(15,19,34,.96),rgba(11,14,24,.93));
-      border:1px solid rgba(255,255,255,.10);
-      border-radius:20px;
-      padding:22px;
-      box-shadow:0 18px 40px rgba(0,0,0,.30);
-    }
-
-    .offer small{
-      display:block;
-      color:var(--gold2);
-      font-weight:800;
-      text-transform:uppercase;
-      letter-spacing:1px;
-      margin-bottom:10px;
-    }
-
-    .price{
-      font-size:34px;
-      font-weight:900;
-      margin:0 0 10px;
-    }
-
-    .offer p{
-      margin:0;
+    .meta{
+      margin-top:14px;
       color:var(--muted);
-      line-height:1.7;
-      font-size:15px;
+      font-size:13px;
+      line-height:1.55;
     }
-
-    .offer .btn{
-      margin-top:16px;
-    }
-
-    .duo{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:18px;
-    }
-
-    .duo-card{
-      border-radius:20px;
-      overflow:hidden;
-      background:linear-gradient(180deg,rgba(15,19,34,.95),rgba(11,14,24,.92));
-      border:1px solid rgba(255,255,255,.10);
-      box-shadow:var(--shadow);
-    }
-
-    .duo-card.full{
-      grid-column:1 / -1;
-    }
-
-    .duo-media{
-      height:420px;
-      padding:14px;
+    .chartbox{
+      background:#05060a;
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:18px;
+      min-height:860px;
       display:flex;
       align-items:center;
       justify-content:center;
-      background:rgba(0,0,0,.20);
+      overflow:hidden;
     }
-
-    .duo-media img{
-      max-width:100%;
-      max-height:100%;
-      width:auto;
-      height:auto;
-      object-fit:contain;
-      border-radius:16px;
-      border:1px solid rgba(255,255,255,.08);
-      box-shadow:0 18px 34px rgba(0,0,0,.30);
+    svg{
+      width:100%;
+      height:100%;
+      max-width:900px;
+      max-height:900px;
+      background:#000;
     }
-
-    .duo-body{
-      padding:14px 16px;
-      font-size:13px;
-      color:#e8ebf1;
-      border-top:1px solid rgba(255,255,255,.08);
-      background:rgba(255,255,255,.02);
-    }
-
-    .book{
-      display:grid;
-      grid-template-columns:260px 1fr;
-      gap:24px;
-      align-items:start;
-    }
-
-    .book img{
-      border-radius:18px;
+    .tablewrap{
+      overflow:auto;
       border:1px solid rgba(255,255,255,.10);
-      box-shadow:0 18px 34px rgba(0,0,0,.30);
+      border-radius:14px;
+      margin-top:16px;
     }
-
-    .contact{
-      text-align:center;
+    table{
+      width:100%;
+      border-collapse:collapse;
     }
-
-    footer{
-      padding:26px 0 34px;
-      text-align:center;
-      color:#7f8796;
-      font-size:13px;
+    th,td{
+      padding:9px 10px;
+      border-bottom:1px solid rgba(255,255,255,.08);
+      font-size:.88rem;
+      text-align:left;
     }
+    th{color:#fff}
+    td{color:#d9deea}
 
-    @media (max-width:1000px){
-      .offers,.duo,.book{
-        grid-template-columns:1fr;
-      }
-      .duo-card.full{
-        grid-column:auto;
-      }
+    @media (max-width:1080px){
+      .layout{grid-template-columns:1fr}
+      .chartbox{min-height:700px}
     }
-
-    @media (max-width:900px){
-      .hero-card{
-        grid-template-columns:1fr;
-      }
-      h1{
-        font-size:38px;
-      }
-    }
-
     @media (max-width:560px){
-      h1{font-size:32px}
-      h2{font-size:26px}
-      .hero-card,.card,.offer{padding:20px}
-      .duo-media{height:300px}
       .brand img{width:62px;height:62px}
+      h1{font-size:30px}
+      .chartbox{min-height:520px}
     }
   </style>
 </head>
 <body>
-
   <div class="topbar">
     <div class="wrap">
       <div class="nav">
@@ -393,156 +170,308 @@
             <span>Astrologie héliocentrique • Géométrie sacrée • Analyse avancée</span>
           </div>
         </div>
-
-        <nav class="menu">
+        <div class="menu">
           <a href="index.html">Accueil</a>
           <a href="offres.html">Offres</a>
-          <a href="logiciel.html">Logiciel</a>
           <a href="livre.html">Livre</a>
           <a href="contact.html">Contact</a>
-        </nav>
+        </div>
       </div>
     </div>
   </div>
 
   <section class="hero">
     <div class="wrap">
-      <div class="hero-card">
-        <div>
-          <div class="badge">Astrologie personnalisée • Paiement sécurisé</div>
-          <h1>Astrologie héliocentrique et analyses astrologiques sur-mesure</h1>
-          <p class="lead">
-            HeliosAstro propose des analyses astrologiques professionnelles basées sur les cycles planétaires,
-            les éphémérides astronomiques et une lecture approfondie de votre carte céleste.
-          </p>
+      <h1>Logiciel astrologique</h1>
+      <p class="lead">Base zodiacale stable, placement planétaire propre et export SVG.</p>
 
-          <div class="pills">
-            <span class="pill">Transit 3 mois — 25€</span>
-            <span class="pill">Révolution solaire — 35€</span>
-            <span class="pill">Export SVG — 5€</span>
+      <div class="layout">
+        <aside class="panel">
+          <label>Nom</label>
+          <input id="name" placeholder="Ex. Thierry">
+
+          <div class="row">
+            <div>
+              <label>Date</label>
+              <input id="date" type="date">
+            </div>
+            <div>
+              <label>Heure</label>
+              <input id="time" type="time" value="12:00">
+            </div>
           </div>
 
-          <div class="actions">
-            <a class="btn btn-primary" href="logiciel.html">Ouvrir le logiciel</a>
-            <a class="btn btn-ghost" href="contact.html">Contact</a>
+          <label>Lieu</label>
+          <input id="place" value="Paris, France">
+
+          <div class="row">
+            <div>
+              <label>Fuseau horaire</label>
+              <input id="tz" value="+01:00">
+            </div>
+            <div>
+              <label>Rotation roue</label>
+              <input id="rot" type="number" value="0">
+            </div>
           </div>
-        </div>
 
-        <div class="visual">
-          <img src="images/mandala-sacree.png" alt="Mandala de géométrie sacrée HeliosAstro">
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="wrap">
-      <div class="card">
-        <h2>Une nouvelle approche de l’astrologie</h2>
-        <p class="text">
-          HeliosAstro relie astrologie, cosmologie, géométrie sacrée et observation des cycles planétaires.
-          Chaque lecture vise une compréhension plus claire des tendances de votre vie, de vos périodes de transformation
-          et de vos dynamiques personnelles.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="wrap">
-      <h2>Analyses astrologiques personnalisées</h2>
-
-      <div class="offers">
-        <article class="offer">
-          <small>Analyse</small>
-          <h3>Transit astrologique</h3>
-          <div class="price">25€</div>
-          <p>Étude des influences planétaires sur les 3 prochains mois. Identification des périodes-clés, tensions et ouvertures.</p>
-          <a class="btn btn-primary" href="https://www.paypal.com/ncp/payment/Z3SZPE6NUZYKG" target="_blank" rel="noopener">Commander — 25€</a>
-        </article>
-
-        <article class="offer">
-          <small>Analyse annuelle</small>
-          <h3>Révolution solaire</h3>
-          <div class="price">35€</div>
-          <p>Lecture astrologique complète de l’année à venir, basée sur le retour solaire et les grands axes d’évolution.</p>
-          <a class="btn btn-primary" href="https://www.paypal.com/ncp/payment/7HTYFEY8JA8EN" target="_blank" rel="noopener">Commander — 35€</a>
-        </article>
-
-        <article class="offer">
-          <small>Graphique</small>
-          <h3>Export SVG</h3>
-          <div class="price">5€</div>
-          <p>Export haute définition de votre carte astrologique en format vectoriel pour impression ou usage personnel.</p>
-          <a class="btn btn-primary" href="https://www.paypal.com/ncp/payment/VQHAY46ZZU2YN" target="_blank" rel="noopener">Télécharger — 5€</a>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="wrap">
-      <h2>Exemples visuels</h2>
-
-      <div class="duo">
-        <article class="duo-card">
-          <div class="duo-media">
-            <img src="images/mandala-sacree.png" alt="Exemple géométrie sacrée HeliosAstro">
+          <div class="buttons">
+            <button class="btn btn-primary" id="runBtn">Tracer la carte</button>
+            <button class="btn btn-ghost" id="exportBtn">Exporter SVG</button>
           </div>
-          <div class="duo-body">Géométrie sacrée lumineuse — visuel signature</div>
-        </article>
 
-        <article class="duo-card">
-          <div class="duo-media">
-            <img src="images/zodiaque-modele.svg" alt="Démo du logiciel HeliosAstro avec modèle zodiacal">
+          <div class="meta" id="statusText">En attente…</div>
+        </aside>
+
+        <section class="panel">
+          <div class="chartbox">
+            <svg id="chartSvg" viewBox="0 0 900 900"></svg>
           </div>
-          <div class="duo-body">Démo du logiciel HeliosAstro — modèle zodiacal exact</div>
-        </article>
 
-        <article class="duo-card full">
-          <div class="duo-media">
-            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgTekAUEeuif0ksbAXk25cTCB4yEiWLLLEgtjm77ke0_iqVK0HaUgaVAYKcl9oGirXprcfyKJpUW83LQshU3BxjBrq8soIWbrUnB_7i3jsc9RKVhYlvI_hs8yTNPftB1PUprpgQ3GKPPSw/s1600/Num%25C3%25A9riser0092.jpg" alt="Exemple thème astral Rihanna">
+          <div class="tablewrap">
+            <table id="planetTable"></table>
           </div>
-          <div class="duo-body">Exemple thème astral — Rihanna</div>
-        </article>
+        </section>
       </div>
     </div>
   </section>
 
-  <section class="section">
-    <div class="wrap">
-      <div class="card book">
-        <div>
-          <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh3kU5wmsv3hlNtbIUQ_NWfEqld0-z1d4P7DiZdtY-VoVE2LKwvBXuUOCSpT5Bhe_8l9_kvYm_BBGjvNXoPJRNftegM9P3MUWl38PchpuGuo77jkxKJ8E3u02q-XJOLnFP9DstQHApJLvM/s900/cover.jpg" alt="Livre Dieu est la lumière — Géométrie sacrée">
-        </div>
-        <div>
-          <h2>Dieu est la lumière — Géométrie sacrée</h2>
-          <p class="text" style="margin-bottom:18px">
-            Une exploration profonde des liens entre lumière, géométrie sacrée, cosmologie et structure de l’univers.
-          </p>
-          <a class="btn btn-primary" href="livre.html">Voir la page livre</a>
-        </div>
-      </div>
-    </div>
-  </section>
+  <script>
+    const NS = "http://www.w3.org/2000/svg";
+    const XL = "http://www.w3.org/1999/xlink";
+    const BG_URL = "./images/zodiaque-modele.svg";
 
-  <section class="section">
-    <div class="wrap">
-      <div class="card contact">
-        <h2>Blog HeliosQuantum</h2>
-        <p class="text" style="margin-bottom:16px">
-          Articles consacrés à l’astrologie, aux cycles planétaires, à la cosmologie et à la géométrie sacrée.
-        </p>
-        <a class="btn btn-primary" href="https://heliosquantum.blogspot.com" target="_blank" rel="noopener">Voir le blog</a>
-      </div>
-    </div>
-  </section>
+    const DEMO_BODIES = [
+      { name:"Soleil", glyph:"☉", color:"#facc15", base:280, speed:0.9856 },
+      { name:"Lune", glyph:"☽", color:"#e5e7eb", base:218, speed:13.1764 },
+      { name:"Mercure", glyph:"☿", color:"#fb923c", base:75, speed:4.0923 },
+      { name:"Vénus", glyph:"♀", color:"#fbbf24", base:20, speed:1.6021 },
+      { name:"Mars", glyph:"♂", color:"#ef4444", base:150, speed:0.5240 },
+      { name:"Jupiter", glyph:"♃", color:"#a78bfa", base:34, speed:0.0831 },
+      { name:"Saturne", glyph:"♄", color:"#60a5fa", base:50, speed:0.0335 },
+      { name:"Uranus", glyph:"♅", color:"#22c55e", base:314, speed:0.0117 },
+      { name:"Neptune", glyph:"♆", color:"#38bdf8", base:304, speed:0.0060 },
+      { name:"Pluton", glyph:"♇", color:"#f472b6", base:238, speed:0.0040 }
+    ];
 
-  <footer>
-    <div class="wrap">
-      © HeliosAstro • <a href="mailto:heliosphotonic@gmail.com" style="text-decoration:none;color:#9ca3af;">heliosphotonic@gmail.com</a>
-    </div>
-  </footer>
+    const SIGNS = ["Bélier","Taureau","Gémeaux","Cancer","Lion","Vierge","Balance","Scorpion","Sagittaire","Capricorne","Verseau","Poissons"];
 
+    function rev360(x){ x%=360; if(x<0)x+=360; return x; }
+
+    function degToSign(lon){
+      lon = rev360(lon);
+      const si = Math.floor(lon / 30);
+      const within = lon - si * 30;
+      const deg = Math.floor(within);
+      const min = Math.round((within - deg) * 60);
+      return `${deg}°${String(min).padStart(2,"0")} ${SIGNS[si]}`;
+    }
+
+    function daysSinceJ2000(d){
+      const j2000 = Date.UTC(2000,0,1,12,0,0) / 86400000;
+      return d.getTime()/86400000 - j2000;
+    }
+
+    function parseTZOffset(tz){
+      const m = (tz || "").trim().match(/^([+-])(\\d{2}):(\\d{2})$/);
+      if(!m) return null;
+      const sign = m[1] === "-" ? -1 : 1;
+      return sign * (parseInt(m[2],10) * 60 + parseInt(m[3],10));
+    }
+
+    function localToUTC(dateStr, timeStr, tzStr){
+      const [Y,M,D] = dateStr.split("-").map(Number);
+      const [h,m] = timeStr.split(":").map(Number);
+      const offsetMin = parseTZOffset(tzStr);
+      if(offsetMin === null) return new Date(Date.UTC(Y, M-1, D, h, m, 0));
+      const utcMillis = Date.UTC(Y, M-1, D, h, m, 0) - offsetMin * 60000;
+      return new Date(utcMillis);
+    }
+
+    function demoPositions(dt){
+      const D = daysSinceJ2000(dt);
+      return DEMO_BODIES.map(p => ({
+        name:p.name,
+        glyph:p.glyph,
+        color:p.color,
+        lon:rev360(p.base + p.speed * D)
+      }));
+    }
+
+    function clearSvg(svg){
+      while(svg.firstChild) svg.removeChild(svg.firstChild);
+    }
+
+    function makeEl(svg, tag, attrs){
+      const el = document.createElementNS(NS, tag);
+      for(const k in attrs){
+        if(k === "href") el.setAttributeNS(XL, "href", attrs[k]);
+        else el.setAttribute(k, attrs[k]);
+      }
+      svg.appendChild(el);
+      return el;
+    }
+
+    function polar(cx, cy, r, deg){
+      const a = (deg - 90) * Math.PI / 180;
+      return {
+        x: cx + r * Math.cos(a),
+        y: cy + r * Math.sin(a)
+      };
+    }
+
+    function drawChart(data){
+      const svg = document.getElementById("chartSvg");
+      clearSvg(svg);
+
+      const name = document.getElementById("name").value.trim() || "Consultant";
+      const place = document.getElementById("place").value.trim();
+      const date = document.getElementById("date").value;
+      const time = document.getElementById("time").value;
+      const rot = parseFloat(document.getElementById("rot").value || "0");
+
+      const cx = 450, cy = 450;
+
+      makeEl(svg,"rect",{x:0,y:0,width:900,height:900,fill:"#000"});
+      makeEl(svg,"image",{href:BG_URL,x:75,y:75,width:750,height:750,opacity:"1"});
+
+      const placed = [];
+
+      data.forEach((p) => {
+        let angle = rev360(p.lon + rot);
+        let level = 0;
+
+        placed.forEach(prev => {
+          const d = Math.abs(((angle - prev.angle + 540) % 360) - 180);
+          if (d < 10) level = Math.max(level, prev.level + 1);
+        });
+
+        placed.push({angle, level});
+
+        const r = 255 - (level * 18);
+        const pos = polar(cx, cy, r, angle);
+        const labelPos = polar(cx, cy, r + 34, angle);
+
+        makeEl(svg,"line",{
+          x1:cx,y1:cy,x2:pos.x,y2:pos.y,
+          stroke:"rgba(255,255,255,.14)",
+          "stroke-width":"1"
+        });
+
+        makeEl(svg,"circle",{
+          cx:pos.x,cy:pos.y,r:14,
+          fill:"#08101f",
+          stroke:p.color,
+          "stroke-width":"2.5"
+        });
+
+        const glyph = makeEl(svg,"text",{
+          x:pos.x,
+          y:pos.y+1,
+          fill:p.color,
+          "font-size":"22",
+          "text-anchor":"middle",
+          "dominant-baseline":"middle",
+          "font-family":"Segoe UI Symbol, Arial Unicode MS, serif"
+        });
+        glyph.textContent = p.glyph;
+
+        const label = makeEl(svg,"text",{
+          x:labelPos.x,
+          y:labelPos.y,
+          fill:"#ffffff",
+          "font-size":"12",
+          "text-anchor":"middle",
+          "dominant-baseline":"middle"
+        });
+        label.textContent = p.name;
+      });
+
+      const t1 = makeEl(svg,"text",{
+        x:450,y:818,
+        fill:"#fff",
+        "font-size":"16",
+        "font-weight":"700",
+        "text-anchor":"middle"
+      });
+      t1.textContent = name;
+
+      const t2 = makeEl(svg,"text",{
+        x:450,y:842,
+        fill:"#cfd6e6",
+        "font-size":"12",
+        "text-anchor":"middle"
+      });
+      t2.textContent = [date ? date.split("-").reverse().join("/") : "", time, place].filter(Boolean).join(" • ");
+    }
+
+    function renderTable(data){
+      const table = document.getElementById("planetTable");
+      let html = `
+        <tr>
+          <th>Corps</th>
+          <th>Glyphe</th>
+          <th>Position</th>
+          <th>Longitude</th>
+        </tr>
+      `;
+      data.forEach(p => {
+        html += `
+          <tr>
+            <td><b>${p.name}</b></td>
+            <td style="font-family:Segoe UI Symbol, Arial Unicode MS, serif;color:${p.color};font-size:20px;">${p.glyph}</td>
+            <td>${degToSign(p.lon)}</td>
+            <td>${p.lon.toFixed(2)}°</td>
+          </tr>
+        `;
+      });
+      table.innerHTML = html;
+    }
+
+    function exportSvg(){
+      const svg = document.getElementById("chartSvg");
+      if(!svg.firstChild) return;
+      const source = new XMLSerializer().serializeToString(svg);
+      const blob = new Blob(['<?xml version="1.0"?>\\n' + source], {type:"image/svg+xml;charset=utf-8"});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "heliosastro-carte.svg";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    function runChart(){
+      const date = document.getElementById("date").value;
+      const time = document.getElementById("time").value || "12:00";
+      const tz = document.getElementById("tz").value || "+01:00";
+      const status = document.getElementById("statusText");
+
+      if(!date){
+        alert("Renseigne la date.");
+        return;
+      }
+
+      const dt = localToUTC(date, time, tz);
+      const data = demoPositions(dt);
+
+      drawChart(data);
+      renderTable(data);
+
+      status.textContent = "Version stable chargée : fond zodiacal SVG + planètes sur anneau circulaire.";
+    }
+
+    document.getElementById("runBtn").addEventListener("click", runChart);
+    document.getElementById("exportBtn").addEventListener("click", exportSvg);
+
+    (function init(){
+      const now = new Date();
+      document.getElementById("date").value =
+        `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,"0")}-${String(now.getDate()).padStart(2,"0")}`;
+      runChart();
+    })();
+  </script>
 </body>
 </html>
