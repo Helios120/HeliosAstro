@@ -1,477 +1,123 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>HeliosAstro — Logiciel astrologique</title>
-  <meta name="description" content="Logiciel astrologique HeliosAstro avec base zodiacale, positions planétaires et export SVG." />
-  <style>
-    :root{
-      --bg:#05060a;
-      --panel:#0f1322;
-      --panel2:#0b0e18;
-      --text:#f5f5f7;
-      --muted:#a4acba;
-      --line:rgba(255,255,255,.10);
-      --gold:#ffb300;
-      --gold2:#ffda6b;
-      --shadow:0 20px 44px rgba(0,0,0,.42);
-      --max:1240px;
-    }
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family:Segoe UI,Arial,sans-serif;
-      color:var(--text);
-      background:radial-gradient(circle at top,#1a2040 0%,#05060a 55%);
-    }
-    a{text-decoration:none;color:inherit}
-    .wrap{max-width:var(--max);margin:0 auto;padding:0 18px}
-    .topbar{
-      position:sticky;top:0;z-index:30;
-      background:rgba(5,6,10,.82);
-      backdrop-filter:blur(10px);
-      border-bottom:1px solid rgba(255,255,255,.06);
-    }
-    .nav{
-      display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap;
-      padding:14px 0;
-    }
-    .brand{display:flex;align-items:center;gap:14px}
-    .brand img{
-      width:72px;height:72px;border-radius:16px;object-fit:contain;background:#000;
-      border:1px solid rgba(255,255,255,.12);box-shadow:0 12px 28px rgba(0,0,0,.35);padding:6px;
-    }
-    .brand-text b{
-      display:block;font-size:24px;letter-spacing:.14em;text-transform:uppercase;line-height:1;
-    }
-    .brand-text span{
-      display:block;margin-top:6px;color:var(--muted);font-size:12px;
-    }
-    .menu{display:flex;gap:14px;flex-wrap:wrap}
-    .menu a{color:var(--gold2);font-weight:800;font-size:14px}
 
-    .hero{padding:26px 0 8px}
-    h1{font-size:38px;margin:0 0 10px}
-    .lead{color:var(--muted);line-height:1.7;margin:0 0 18px}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 
-    .layout{
-      display:grid;
-      grid-template-columns:360px 1fr;
-      gap:18px;
-      margin:20px 0 34px;
-    }
-    .panel{
-      background:linear-gradient(180deg,var(--panel),var(--panel2));
-      border:1px solid rgba(255,255,255,.10);
-      border-radius:22px;
-      padding:20px;
-      box-shadow:var(--shadow);
-    }
-    label{
-      display:block;
-      color:var(--muted);
-      font-size:.80rem;
-      margin:10px 0 6px;
-    }
-    input{
-      width:100%;
-      padding:11px 12px;
-      border-radius:12px;
-      border:1px solid rgba(255,255,255,.14);
-      background:#050711;
-      color:var(--text);
-      font-size:.94rem;
-    }
-    .row{display:flex;gap:8px}
-    .row > div{flex:1}
-    .buttons{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      margin-top:16px;
-    }
-    .btn{
-      display:inline-block;
-      padding:13px 18px;
-      border-radius:999px;
-      font-weight:900;
-      font-size:14px;
-      cursor:pointer;
-      border:none;
-    }
-    .btn-primary{background:var(--gold);color:#111}
-    .btn-ghost{
-      border:1px solid rgba(255,218,107,.55);
-      color:var(--gold2);
-      background:transparent;
-    }
-    .meta{
-      margin-top:14px;
-      color:var(--muted);
-      font-size:13px;
-      line-height:1.55;
-    }
-    .chartbox{
-      background:#05060a;
-      border:1px solid rgba(255,255,255,.12);
-      border-radius:18px;
-      min-height:860px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      overflow:hidden;
-    }
-    svg{
-      width:100%;
-      height:100%;
-      max-width:900px;
-      max-height:900px;
-      background:#000;
-    }
-    .tablewrap{
-      overflow:auto;
-      border:1px solid rgba(255,255,255,.10);
-      border-radius:14px;
-      margin-top:16px;
-    }
-    table{
-      width:100%;
-      border-collapse:collapse;
-    }
-    th,td{
-      padding:9px 10px;
-      border-bottom:1px solid rgba(255,255,255,.08);
-      font-size:.88rem;
-      text-align:left;
-    }
-    th{color:#fff}
-    td{color:#d9deea}
+<title>HeliosAstro</title>
 
-    @media (max-width:1080px){
-      .layout{grid-template-columns:1fr}
-      .chartbox{min-height:700px}
-    }
-    @media (max-width:560px){
-      .brand img{width:62px;height:62px}
-      h1{font-size:30px}
-      .chartbox{min-height:520px}
-    }
-  </style>
+<style>
+
+body{
+margin:0;
+font-family:Arial;
+background:#05060a;
+color:white;
+}
+
+header{
+display:flex;
+align-items:center;
+padding:20px;
+background:#0f1322;
+}
+
+.logo{
+height:70px;
+margin-right:20px;
+}
+
+nav a{
+color:#ffda6b;
+margin-right:20px;
+text-decoration:none;
+font-weight:bold;
+}
+
+.hero{
+text-align:center;
+padding:80px 20px;
+}
+
+.hero h1{
+font-size:50px;
+margin-bottom:20px;
+}
+
+.hero p{
+font-size:20px;
+color:#a4acba;
+}
+
+.demo{
+text-align:center;
+padding:60px;
+}
+
+.demo img{
+width:600px;
+max-width:90%;
+border-radius:10px;
+}
+
+footer{
+text-align:center;
+padding:40px;
+color:#777;
+}
+
+</style>
+
 </head>
+
+
 <body>
-  <div class="topbar">
-    <div class="wrap">
-      <div class="nav">
-        <div class="brand">
-          <img src="images/logo-heliosastro.png" alt="Logo HeliosAstro">
-          <div class="brand-text">
-            <b>HeliosAstro</b>
-            <span>Astrologie héliocentrique • Géométrie sacrée • Analyse avancée</span>
-          </div>
-        </div>
-        <div class="menu">
-          <a href="index.html">Accueil</a>
-          <a href="offres.html">Offres</a>
-          <a href="livre.html">Livre</a>
-          <a href="contact.html">Contact</a>
-        </div>
-      </div>
-    </div>
-  </div>
 
-  <section class="hero">
-    <div class="wrap">
-      <h1>Logiciel astrologique</h1>
-      <p class="lead">Base zodiacale stable, placement planétaire propre et export SVG.</p>
+<header>
 
-      <div class="layout">
-        <aside class="panel">
-          <label>Nom</label>
-          <input id="name" placeholder="Ex. Thierry">
+<img src="images/logo-heliosastro.png" class="logo">
 
-          <div class="row">
-            <div>
-              <label>Date</label>
-              <input id="date" type="date">
-            </div>
-            <div>
-              <label>Heure</label>
-              <input id="time" type="time" value="12:00">
-            </div>
-          </div>
+<nav>
+<a href="index.html">Accueil</a>
+<a href="logiciel.html">Logiciel</a>
+<a href="offres.html">Offres</a>
+<a href="livre.html">Livre</a>
+<a href="contact.html">Contact</a>
+</nav>
 
-          <label>Lieu</label>
-          <input id="place" value="Paris, France">
+</header>
 
-          <div class="row">
-            <div>
-              <label>Fuseau horaire</label>
-              <input id="tz" value="+01:00">
-            </div>
-            <div>
-              <label>Rotation roue</label>
-              <input id="rot" type="number" value="0">
-            </div>
-          </div>
 
-          <div class="buttons">
-            <button class="btn btn-primary" id="runBtn">Tracer la carte</button>
-            <button class="btn btn-ghost" id="exportBtn">Exporter SVG</button>
-          </div>
+<section class="hero">
 
-          <div class="meta" id="statusText">En attente…</div>
-        </aside>
+<h1>HeliosAstro</h1>
 
-        <section class="panel">
-          <div class="chartbox">
-            <svg id="chartSvg" viewBox="0 0 900 900"></svg>
-          </div>
+<p>Astrologie héliocentrique • Géométrie sacrée • Analyse astrologique</p>
 
-          <div class="tablewrap">
-            <table id="planetTable"></table>
-          </div>
-        </section>
-      </div>
-    </div>
-  </section>
+</section>
 
-  <script>
-    const NS = "http://www.w3.org/2000/svg";
-    const XL = "http://www.w3.org/1999/xlink";
-    const BG_URL = "./images/zodiaque-modele.svg";
 
-    const DEMO_BODIES = [
-      { name:"Soleil", glyph:"☉", color:"#facc15", base:280, speed:0.9856 },
-      { name:"Lune", glyph:"☽", color:"#e5e7eb", base:218, speed:13.1764 },
-      { name:"Mercure", glyph:"☿", color:"#fb923c", base:75, speed:4.0923 },
-      { name:"Vénus", glyph:"♀", color:"#fbbf24", base:20, speed:1.6021 },
-      { name:"Mars", glyph:"♂", color:"#ef4444", base:150, speed:0.5240 },
-      { name:"Jupiter", glyph:"♃", color:"#a78bfa", base:34, speed:0.0831 },
-      { name:"Saturne", glyph:"♄", color:"#60a5fa", base:50, speed:0.0335 },
-      { name:"Uranus", glyph:"♅", color:"#22c55e", base:314, speed:0.0117 },
-      { name:"Neptune", glyph:"♆", color:"#38bdf8", base:304, speed:0.0060 },
-      { name:"Pluton", glyph:"♇", color:"#f472b6", base:238, speed:0.0040 }
-    ];
+<section class="demo">
 
-    const SIGNS = ["Bélier","Taureau","Gémeaux","Cancer","Lion","Vierge","Balance","Scorpion","Sagittaire","Capricorne","Verseau","Poissons"];
+<h2>Démo du logiciel astrologique</h2>
 
-    function rev360(x){ x%=360; if(x<0)x+=360; return x; }
+<img src="images/zodiaque-modele.png">
 
-    function degToSign(lon){
-      lon = rev360(lon);
-      const si = Math.floor(lon / 30);
-      const within = lon - si * 30;
-      const deg = Math.floor(within);
-      const min = Math.round((within - deg) * 60);
-      return `${deg}°${String(min).padStart(2,"0")} ${SIGNS[si]}`;
-    }
+<br><br>
 
-    function daysSinceJ2000(d){
-      const j2000 = Date.UTC(2000,0,1,12,0,0) / 86400000;
-      return d.getTime()/86400000 - j2000;
-    }
+<a href="logiciel.html">Ouvrir le logiciel</a>
 
-    function parseTZOffset(tz){
-      const m = (tz || "").trim().match(/^([+-])(\\d{2}):(\\d{2})$/);
-      if(!m) return null;
-      const sign = m[1] === "-" ? -1 : 1;
-      return sign * (parseInt(m[2],10) * 60 + parseInt(m[3],10));
-    }
+</section>
 
-    function localToUTC(dateStr, timeStr, tzStr){
-      const [Y,M,D] = dateStr.split("-").map(Number);
-      const [h,m] = timeStr.split(":").map(Number);
-      const offsetMin = parseTZOffset(tzStr);
-      if(offsetMin === null) return new Date(Date.UTC(Y, M-1, D, h, m, 0));
-      const utcMillis = Date.UTC(Y, M-1, D, h, m, 0) - offsetMin * 60000;
-      return new Date(utcMillis);
-    }
 
-    function demoPositions(dt){
-      const D = daysSinceJ2000(dt);
-      return DEMO_BODIES.map(p => ({
-        name:p.name,
-        glyph:p.glyph,
-        color:p.color,
-        lon:rev360(p.base + p.speed * D)
-      }));
-    }
+<footer>
 
-    function clearSvg(svg){
-      while(svg.firstChild) svg.removeChild(svg.firstChild);
-    }
+HeliosAstro
 
-    function makeEl(svg, tag, attrs){
-      const el = document.createElementNS(NS, tag);
-      for(const k in attrs){
-        if(k === "href") el.setAttributeNS(XL, "href", attrs[k]);
-        else el.setAttribute(k, attrs[k]);
-      }
-      svg.appendChild(el);
-      return el;
-    }
+</footer>
 
-    function polar(cx, cy, r, deg){
-      const a = (deg - 90) * Math.PI / 180;
-      return {
-        x: cx + r * Math.cos(a),
-        y: cy + r * Math.sin(a)
-      };
-    }
 
-    function drawChart(data){
-      const svg = document.getElementById("chartSvg");
-      clearSvg(svg);
-
-      const name = document.getElementById("name").value.trim() || "Consultant";
-      const place = document.getElementById("place").value.trim();
-      const date = document.getElementById("date").value;
-      const time = document.getElementById("time").value;
-      const rot = parseFloat(document.getElementById("rot").value || "0");
-
-      const cx = 450, cy = 450;
-
-      makeEl(svg,"rect",{x:0,y:0,width:900,height:900,fill:"#000"});
-      makeEl(svg,"image",{href:BG_URL,x:75,y:75,width:750,height:750,opacity:"1"});
-
-      const placed = [];
-
-      data.forEach((p) => {
-        let angle = rev360(p.lon + rot);
-        let level = 0;
-
-        placed.forEach(prev => {
-          const d = Math.abs(((angle - prev.angle + 540) % 360) - 180);
-          if (d < 10) level = Math.max(level, prev.level + 1);
-        });
-
-        placed.push({angle, level});
-
-        const r = 255 - (level * 18);
-        const pos = polar(cx, cy, r, angle);
-        const labelPos = polar(cx, cy, r + 34, angle);
-
-        makeEl(svg,"line",{
-          x1:cx,y1:cy,x2:pos.x,y2:pos.y,
-          stroke:"rgba(255,255,255,.14)",
-          "stroke-width":"1"
-        });
-
-        makeEl(svg,"circle",{
-          cx:pos.x,cy:pos.y,r:14,
-          fill:"#08101f",
-          stroke:p.color,
-          "stroke-width":"2.5"
-        });
-
-        const glyph = makeEl(svg,"text",{
-          x:pos.x,
-          y:pos.y+1,
-          fill:p.color,
-          "font-size":"22",
-          "text-anchor":"middle",
-          "dominant-baseline":"middle",
-          "font-family":"Segoe UI Symbol, Arial Unicode MS, serif"
-        });
-        glyph.textContent = p.glyph;
-
-        const label = makeEl(svg,"text",{
-          x:labelPos.x,
-          y:labelPos.y,
-          fill:"#ffffff",
-          "font-size":"12",
-          "text-anchor":"middle",
-          "dominant-baseline":"middle"
-        });
-        label.textContent = p.name;
-      });
-
-      const t1 = makeEl(svg,"text",{
-        x:450,y:818,
-        fill:"#fff",
-        "font-size":"16",
-        "font-weight":"700",
-        "text-anchor":"middle"
-      });
-      t1.textContent = name;
-
-      const t2 = makeEl(svg,"text",{
-        x:450,y:842,
-        fill:"#cfd6e6",
-        "font-size":"12",
-        "text-anchor":"middle"
-      });
-      t2.textContent = [date ? date.split("-").reverse().join("/") : "", time, place].filter(Boolean).join(" • ");
-    }
-
-    function renderTable(data){
-      const table = document.getElementById("planetTable");
-      let html = `
-        <tr>
-          <th>Corps</th>
-          <th>Glyphe</th>
-          <th>Position</th>
-          <th>Longitude</th>
-        </tr>
-      `;
-      data.forEach(p => {
-        html += `
-          <tr>
-            <td><b>${p.name}</b></td>
-            <td style="font-family:Segoe UI Symbol, Arial Unicode MS, serif;color:${p.color};font-size:20px;">${p.glyph}</td>
-            <td>${degToSign(p.lon)}</td>
-            <td>${p.lon.toFixed(2)}°</td>
-          </tr>
-        `;
-      });
-      table.innerHTML = html;
-    }
-
-    function exportSvg(){
-      const svg = document.getElementById("chartSvg");
-      if(!svg.firstChild) return;
-      const source = new XMLSerializer().serializeToString(svg);
-      const blob = new Blob(['<?xml version="1.0"?>\\n' + source], {type:"image/svg+xml;charset=utf-8"});
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "heliosastro-carte.svg";
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-    }
-
-    function runChart(){
-      const date = document.getElementById("date").value;
-      const time = document.getElementById("time").value || "12:00";
-      const tz = document.getElementById("tz").value || "+01:00";
-      const status = document.getElementById("statusText");
-
-      if(!date){
-        alert("Renseigne la date.");
-        return;
-      }
-
-      const dt = localToUTC(date, time, tz);
-      const data = demoPositions(dt);
-
-      drawChart(data);
-      renderTable(data);
-
-      status.textContent = "Version stable chargée : fond zodiacal SVG + planètes sur anneau circulaire.";
-    }
-
-    document.getElementById("runBtn").addEventListener("click", runChart);
-    document.getElementById("exportBtn").addEventListener("click", exportSvg);
-
-    (function init(){
-      const now = new Date();
-      document.getElementById("date").value =
-        `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,"0")}-${String(now.getDate()).padStart(2,"0")}`;
-      runChart();
-    })();
-  </script>
 </body>
 </html>
