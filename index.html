@@ -24,16 +24,6 @@
   <meta name="twitter:description" content="Analyse astrologique, logiciel astrologique en ligne, géométrie sacrée et visualisation zodiacale." />
   <meta name="twitter:image" content="https://heliosastro.com/images/og-image.jpg" />
 
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"WebSite",
-    "name":"HeliosAstro",
-    "url":"https://heliosastro.com/",
-    "description":"Astrologie héliocentrique, logiciel astrologique, géométrie sacrée et analyses personnalisées."
-  }
-  </script>
-
   <style>
     :root{
       --bg:#05060a;
@@ -55,8 +45,7 @@
       margin:0;
       font-family:Segoe UI,Arial,sans-serif;
       color:var(--text);
-      background:
-        radial-gradient(circle at top,#1a2040 0%,#05060a 55%);
+      background:radial-gradient(circle at top,#1a2040 0%,#05060a 55%);
     }
 
     a{text-decoration:none;color:inherit}
@@ -88,16 +77,17 @@
     }
 
     .brand img{
-      width:58px;
-      height:58px;
-      border-radius:14px;
-      object-fit:cover;
+      width:72px;
+      height:72px;
+      border-radius:16px;
+      object-fit:contain;
       background:#000;
       border:1px solid rgba(255,255,255,.12);
       box-shadow:0 12px 28px rgba(0,0,0,.35);
+      padding:6px;
     }
 
-    .brand b{
+    .brand-text b{
       display:block;
       font-size:24px;
       letter-spacing:.14em;
@@ -105,7 +95,7 @@
       line-height:1;
     }
 
-    .brand span{
+    .brand-text span{
       display:block;
       margin-top:6px;
       color:var(--muted);
@@ -387,6 +377,7 @@
       h2{font-size:26px}
       .hero-card,.card,.offer{padding:20px}
       .duo-media{height:300px}
+      .brand img{width:62px;height:62px}
     }
   </style>
 </head>
@@ -396,8 +387,8 @@
     <div class="wrap">
       <div class="nav">
         <div class="brand">
-          <img src="images/mandala-sacree.png" alt="HeliosAstro">
-          <div>
+          <img src="images/logo-heliosastro.png" alt="Logo HeliosAstro">
+          <div class="brand-text">
             <b>HeliosAstro</b>
             <span>Astrologie héliocentrique • Géométrie sacrée • Analyse avancée</span>
           </div>
@@ -503,9 +494,9 @@
 
         <article class="duo-card">
           <div class="duo-media">
-            <img src="images/zodiaque-modele.png" alt="Cercle zodiacal HeliosAstro">
+            <img src="images/zodiaque-modele.svg" alt="Démo du logiciel HeliosAstro avec modèle zodiacal">
           </div>
-          <div class="duo-body">Cercle zodiacal coloré HeliosAstro</div>
+          <div class="duo-body">Démo du logiciel HeliosAstro — modèle zodiacal exact</div>
         </article>
 
         <article class="duo-card full">
