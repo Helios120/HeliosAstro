@@ -4,61 +4,190 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>HeliosAstro — Logiciel astrologique</title>
-  <meta name="description" content="Logiciel astrologique HeliosAstro : cercle zodiacal dynamique, positions planétaires, export SVG." />
+  <meta name="description" content="Logiciel astrologique HeliosAstro : cercle zodiacal, glyphes planétaires, maisons astrologiques, export SVG et visualisation du thème astral." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://heliosastro.com/logiciel.html" />
+  <meta property="og:image" content="https://heliosastro.com/images/og-image.jpg" />
+
   <style>
     :root{
-      --bg:#05060a; --panel:#0f1322; --panel2:#0b0e18; --text:#f5f5f7; --muted:#a4acba;
-      --line:rgba(255,255,255,.10); --gold:#ffb300; --gold2:#ffda6b; --shadow:0 20px 44px rgba(0,0,0,.42);
+      --bg:#05060a;
+      --panel:#0f1322;
+      --panel2:#0b0e18;
+      --text:#f5f5f7;
+      --muted:#a4acba;
+      --line:rgba(255,255,255,.10);
+      --gold:#ffb300;
+      --gold2:#ffda6b;
+      --shadow:0 20px 44px rgba(0,0,0,.42);
+      --max:1240px;
     }
     *{box-sizing:border-box}
-    body{margin:0;font-family:Segoe UI,Arial,sans-serif;color:var(--text);background:radial-gradient(circle at top,#1a2040 0%,#05060a 55%)}
+    body{
+      margin:0;
+      font-family:Segoe UI,Arial,sans-serif;
+      color:var(--text);
+      background:radial-gradient(circle at top,#1a2040 0%,#05060a 55%);
+    }
     a{text-decoration:none;color:inherit}
-    .wrap{max-width:1180px;margin:0 auto;padding:0 18px}
-    .topbar{background:rgba(5,6,10,.74);border-bottom:1px solid rgba(255,255,255,.06)}
-    .nav{display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap;padding:14px 0}
-    .brand{font-size:24px;font-weight:900;letter-spacing:.14em;text-transform:uppercase}
+    .wrap{max-width:var(--max);margin:0 auto;padding:0 18px}
+    .topbar{
+      position:sticky;top:0;z-index:30;
+      background:rgba(5,6,10,.82);
+      backdrop-filter:blur(10px);
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    .nav{
+      display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap;
+      padding:14px 0;
+    }
+    .brand{display:flex;align-items:center;gap:14px}
+    .brand img{
+      width:72px;height:72px;border-radius:16px;object-fit:contain;background:#000;
+      border:1px solid rgba(255,255,255,.12);box-shadow:0 12px 28px rgba(0,0,0,.35);padding:6px;
+    }
+    .brand-text b{
+      display:block;font-size:24px;letter-spacing:.14em;text-transform:uppercase;line-height:1;
+    }
+    .brand-text span{
+      display:block;margin-top:6px;color:var(--muted);font-size:12px;
+    }
     .menu{display:flex;gap:14px;flex-wrap:wrap}
-    .menu a{color:#ffda6b;font-weight:800;font-size:14px}
-    h1{font-size:40px;margin:30px 0 12px}
-    p{color:var(--muted);line-height:1.7}
-    .layout{display:grid;grid-template-columns:360px 1fr;gap:18px;margin:24px 0}
+    .menu a{color:var(--gold2);font-weight:800;font-size:14px}
+
+    .hero{padding:26px 0 8px}
+    h1{font-size:38px;margin:0 0 10px}
+    .lead{color:var(--muted);line-height:1.7;margin:0 0 18px}
+
+    .layout{
+      display:grid;
+      grid-template-columns:380px 1fr;
+      gap:18px;
+      margin:20px 0 34px;
+    }
     .panel{
       background:linear-gradient(180deg,var(--panel),var(--panel2));
-      border:1px solid rgba(255,255,255,.10);border-radius:20px;padding:20px;box-shadow:var(--shadow);
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:22px;
+      padding:20px;
+      box-shadow:var(--shadow);
     }
-    label{display:block;color:var(--muted);font-size:.78rem;margin:8px 0 4px}
+    .panel h2{
+      margin:0 0 12px;
+      font-size:22px;
+    }
+    .sub{
+      margin:0 0 14px;
+      font-size:13px;
+      color:var(--muted);
+      line-height:1.6;
+    }
+    label{
+      display:block;
+      color:var(--muted);
+      font-size:.80rem;
+      margin:10px 0 6px;
+    }
     input{
-      width:100%;padding:10px;border-radius:12px;border:1px solid rgba(255,255,255,.14);
-      background:#050711;color:var(--text);font-size:.92rem;
+      width:100%;
+      padding:11px 12px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,.14);
+      background:#050711;
+      color:var(--text);
+      font-size:.94rem;
     }
     .row{display:flex;gap:8px}
-    .row>div{flex:1}
-    .buttons{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+    .row > div{flex:1}
+    .buttons{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:16px;
+    }
     .btn{
-      display:inline-block;padding:13px 18px;border-radius:999px;font-weight:900;font-size:14px;cursor:pointer;border:none
+      display:inline-block;
+      padding:13px 18px;
+      border-radius:999px;
+      font-weight:900;
+      font-size:14px;
+      cursor:pointer;
+      border:none;
     }
     .btn-primary{background:var(--gold);color:#111}
-    .btn-ghost{border:1px solid rgba(255,218,107,.55);color:var(--gold2);background:transparent}
-    .hint{margin-top:10px;color:var(--muted);font-size:.8rem;line-height:1.45}
-    .meta{margin-top:12px;color:var(--muted);font-size:14px}
-    .chartbox{
-      background:radial-gradient(circle at center,#161a28 0,#05060a 60%);
-      border:1px solid rgba(255,255,255,.12);border-radius:16px;min-height:640px;
-      display:flex;align-items:center;justify-content:center;overflow:hidden
+    .btn-ghost{
+      border:1px solid rgba(255,218,107,.55);
+      color:var(--gold2);
+      background:transparent;
     }
-    svg{width:100%;height:100%;max-height:820px}
-    .tablewrap{margin-top:16px;overflow:auto;border:1px solid rgba(255,255,255,.10);border-radius:14px}
-    table{width:100%;border-collapse:collapse}
-    th,td{padding:8px;border-bottom:1px solid rgba(255,255,255,.08);font-size:.88rem;text-align:left}
-    @media (max-width:1000px){.layout{grid-template-columns:1fr}}
+    .meta{
+      margin-top:14px;
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.55;
+    }
+
+    .chart-panel{
+      display:grid;
+      gap:16px;
+    }
+    .chartbox{
+      background:radial-gradient(circle at center,#11183a,#02030a);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:18px;
+      min-height:860px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      overflow:hidden;
+    }
+    svg{
+      width:100%;
+      height:100%;
+      max-width:900px;
+      max-height:900px;
+    }
+
+    .tablewrap{
+      overflow:auto;
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:14px;
+    }
+    table{
+      width:100%;
+      border-collapse:collapse;
+    }
+    th,td{
+      padding:9px 10px;
+      border-bottom:1px solid rgba(255,255,255,.08);
+      font-size:.88rem;
+      text-align:left;
+    }
+    th{color:#fff}
+    td{color:#d9deea}
+
+    @media (max-width:1080px){
+      .layout{grid-template-columns:1fr}
+      .chartbox{min-height:700px}
+    }
+    @media (max-width:560px){
+      .brand img{width:62px;height:62px}
+      h1{font-size:30px}
+      .chartbox{min-height:520px}
+    }
   </style>
 </head>
 <body>
-
   <div class="topbar">
     <div class="wrap">
       <div class="nav">
-        <div class="brand">HeliosAstro</div>
+        <div class="brand">
+          <img src="images/logo-heliosastro.png" alt="Logo HeliosAstro">
+          <div class="brand-text">
+            <b>HeliosAstro</b>
+            <span>Astrologie héliocentrique • Géométrie sacrée • Analyse avancée</span>
+          </div>
+        </div>
         <div class="menu">
           <a href="index.html">Accueil</a>
           <a href="offres.html">Offres</a>
@@ -69,92 +198,109 @@
     </div>
   </div>
 
-  <div class="wrap">
-    <h1>Logiciel astrologique</h1>
-    <p>Affichage dynamique du cercle zodiacal, calcul simplifié des positions planétaires, export SVG. L’API d’éphémérides pourra être branchée ensuite.</p>
+  <section class="hero">
+    <div class="wrap">
+      <h1>Logiciel astrologique</h1>
+      <p class="lead">
+        Base zodiacale exacte, positions planétaires simplifiées, affichage graphique et export SVG.
+      </p>
 
-    <div class="layout">
-      <aside class="panel">
-        <label>Nom (affichage)</label>
-        <input id="name" placeholder="Ex. Thierry">
+      <div class="layout">
+        <aside class="panel">
+          <h2>Paramètres</h2>
+          <p class="sub">
+            Version stable avec fond zodiacal exact en SVG, puis placement dynamique des planètes.
+          </p>
 
-        <div class="row">
-          <div>
-            <label>Date</label>
-            <input id="date" type="date">
+          <label>Nom</label>
+          <input id="name" placeholder="Ex. Thierry">
+
+          <div class="row">
+            <div>
+              <label>Date</label>
+              <input id="date" type="date">
+            </div>
+            <div>
+              <label>Heure</label>
+              <input id="time" type="time" value="12:00">
+            </div>
           </div>
-          <div>
-            <label>Heure</label>
-            <input id="time" type="time" value="12:00">
+
+          <label>Lieu</label>
+          <input id="place" value="Paris, France">
+
+          <div class="row">
+            <div>
+              <label>Fuseau horaire</label>
+              <input id="tz" value="+01:00">
+            </div>
+            <div>
+              <label>Rotation roue (°)</label>
+              <input id="rot" type="number" value="90">
+            </div>
           </div>
-        </div>
 
-        <label>Lieu (affichage)</label>
-        <input id="place" placeholder="Ville, pays">
-
-        <div class="row">
-          <div>
-            <label>Fuseau horaire</label>
-            <input id="tz" placeholder="+01:00" value="+01:00">
+          <div class="row">
+            <div>
+              <label>Taille texte</label>
+              <input id="fontSize" type="number" value="13">
+            </div>
+            <div>
+              <label>Taille glyphes</label>
+              <input id="glyphSize" type="number" value="22">
+            </div>
           </div>
-          <div>
-            <label>Rotation roue (°)</label>
-            <input id="rot" type="number" value="90">
+
+          <div class="buttons">
+            <button class="btn btn-primary" id="runBtn">Tracer la carte</button>
+            <button class="btn btn-ghost" id="exportBtn">Exporter SVG</button>
           </div>
-        </div>
 
-        <div class="row">
-          <div>
-            <label>Taille police</label>
-            <input id="fs" type="number" value="13">
+          <div class="meta" id="statusText">
+            En attente…
           </div>
-          <div>
-            <label>API éphémérides</label>
-            <input id="apiUrl" placeholder="https://ton-api/chart">
+        </aside>
+
+        <section class="chart-panel">
+          <div class="panel">
+            <div class="chartbox">
+              <svg id="chartSvg" viewBox="0 0 900 900" aria-label="Thème astral HeliosAstro"></svg>
+            </div>
           </div>
-        </div>
 
-        <div class="buttons">
-          <button class="btn btn-primary" id="runBtn">Tracer la carte</button>
-          <button class="btn btn-ghost" id="exportBtn">Exporter SVG</button>
-        </div>
-
-        <div class="hint">Si l’API n’est pas renseignée ou ne répond pas, le logiciel passe automatiquement en mode démo.</div>
-        <div class="meta" id="statusText">En attente…</div>
-      </aside>
-
-      <section class="panel">
-        <div class="chartbox">
-          <svg id="chartSvg" viewBox="0 0 800 800"></svg>
-        </div>
-        <div class="tablewrap">
-          <table id="planetTable"></table>
-        </div>
-      </section>
+          <div class="panel">
+            <h2>Positions planétaires</h2>
+            <div class="tablewrap">
+              <table id="planetTable"></table>
+            </div>
+          </div>
+        </section>
+      </div>
     </div>
-  </div>
+  </section>
 
   <script>
-    const BG_URL = "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjr3UDsWZui2auoIgF1R9TzUUw_e3o8XxNxR2N0grOWppwI50XIftLQKMwq410Rc1hZC0Pke3GYniZswYSFDSnuoDk5oKUQAZ-BXsZd4uRZJn60uQVZyXjHzUBs1aYs7hBa9dXj6xos2kf43Bg4TTtTwWsr6vjU7HQ4jQAZDA913n3R8R9MfgfLoIVmR_A/s1800/zodiaque_1800x1600.png";
+    const NS = "http://www.w3.org/2000/svg";
+    const XL = "http://www.w3.org/1999/xlink";
+    const BG_URL = "./images/zodiaque-modele.svg";
 
     const DEMO_BODIES = [
-      { name:"Soleil", color:"#facc15", base:280, speed:0.9856 },
-      { name:"Lune", color:"#e5e7eb", base:218, speed:13.1764 },
-      { name:"Mercure", color:"#fb923c", base:75, speed:4.0923 },
-      { name:"Vénus", color:"#fbbf24", base:20, speed:1.6021 },
-      { name:"Mars", color:"#ef4444", base:150, speed:0.5240 },
-      { name:"Jupiter", color:"#a78bfa", base:34, speed:0.0831 },
-      { name:"Saturne", color:"#60a5fa", base:50, speed:0.0335 },
-      { name:"Uranus", color:"#22c55e", base:314, speed:0.0117 },
-      { name:"Neptune", color:"#38bdf8", base:304, speed:0.0060 },
-      { name:"Pluton", color:"#f472b6", base:238, speed:0.0040 }
+      { name:"Soleil", glyph:"☉", color:"#facc15", base:280, speed:0.9856 },
+      { name:"Lune", glyph:"☽", color:"#e5e7eb", base:218, speed:13.1764 },
+      { name:"Mercure", glyph:"☿", color:"#fb923c", base:75, speed:4.0923 },
+      { name:"Vénus", glyph:"♀", color:"#fbbf24", base:20, speed:1.6021 },
+      { name:"Mars", glyph:"♂", color:"#ef4444", base:150, speed:0.5240 },
+      { name:"Jupiter", glyph:"♃", color:"#a78bfa", base:34, speed:0.0831 },
+      { name:"Saturne", glyph:"♄", color:"#60a5fa", base:50, speed:0.0335 },
+      { name:"Uranus", glyph:"♅", color:"#22c55e", base:314, speed:0.0117 },
+      { name:"Neptune", glyph:"♆", color:"#38bdf8", base:304, speed:0.0060 },
+      { name:"Pluton", glyph:"♇", color:"#f472b6", base:238, speed:0.0040 }
     ];
 
     const SIGNS = ["Bélier","Taureau","Gémeaux","Cancer","Lion","Vierge","Balance","Scorpion","Sagittaire","Capricorne","Verseau","Poissons"];
-    const NS = "http://www.w3.org/2000/svg";
-    const XL = "http://www.w3.org/1999/xlink";
 
     function rev360(x){ x%=360; if(x<0)x+=360; return x; }
+
     function degToSign(lon){
       lon = rev360(lon);
       const si = Math.floor(lon / 30);
@@ -163,16 +309,19 @@
       const min = Math.round((within - deg) * 60);
       return `${deg}°${String(min).padStart(2,"0")} ${SIGNS[si]}`;
     }
+
     function daysSinceJ2000(d){
       const j2000 = Date.UTC(2000,0,1,12,0,0) / 86400000;
       return d.getTime()/86400000 - j2000;
     }
+
     function parseTZOffset(tz){
-      const m = (tz || "").trim().match(/^([+-])(\d{2}):(\d{2})$/);
+      const m = (tz || "").trim().match(/^([+-])(\\d{2}):(\\d{2})$/);
       if(!m) return null;
       const sign = m[1] === "-" ? -1 : 1;
       return sign * (parseInt(m[2],10) * 60 + parseInt(m[3],10));
     }
+
     function localToUTC(dateStr, timeStr, tzStr){
       const [Y,M,D] = dateStr.split("-").map(Number);
       const [h,m] = timeStr.split(":").map(Number);
@@ -181,43 +330,22 @@
       const utcMillis = Date.UTC(Y, M-1, D, h, m, 0) - offsetMin * 60000;
       return new Date(utcMillis);
     }
+
     function demoPositions(dt){
       const D = daysSinceJ2000(dt);
       return DEMO_BODIES.map(p => ({
-        name:p.name,color:p.color,lon:rev360(p.base + p.speed * D),retrograde:false
+        name:p.name,
+        glyph:p.glyph,
+        color:p.color,
+        lon:rev360(p.base + p.speed * D),
+        retrograde:false
       }));
     }
 
-    async function fetchApiPositions(apiUrl, dateStr, timeStr, tzStr){
-      const utc = localToUTC(dateStr, timeStr, tzStr);
-      const iso = utc.toISOString();
-      const url = new URL(apiUrl);
-      url.searchParams.set("iso", iso);
-      const res = await fetch(url.toString());
-      if(!res.ok) throw new Error("API non disponible");
-      const json = await res.json();
-      if(!json || !json.bodies) throw new Error("Réponse API invalide");
-      const palette = {
-        Sun:"#facc15", Moon:"#e5e7eb", Mercury:"#fb923c", Venus:"#fbbf24", Mars:"#ef4444",
-        Jupiter:"#a78bfa", Saturn:"#60a5fa", Uranus:"#22c55e", Neptune:"#38bdf8", Pluto:"#f472b6", TrueNode:"#ffda6b"
-      };
-      return Object.entries(json.bodies).map(([k,v]) => ({
-        name: translateBodyName(k),
-        color: palette[k] || "#ffffff",
-        lon: rev360(v.lon),
-        retrograde: !!v.retrograde
-      }));
+    function clearSvg(svg){
+      while(svg.firstChild) svg.removeChild(svg.firstChild);
     }
 
-    function translateBodyName(key){
-      const map = {
-        Sun:"Soleil", Moon:"Lune", Mercury:"Mercure", Venus:"Vénus", Mars:"Mars", Jupiter:"Jupiter",
-        Saturn:"Saturne", Uranus:"Uranus", Neptune:"Neptune", Pluto:"Pluton", TrueNode:"Nœud Vrai"
-      };
-      return map[key] || key;
-    }
-
-    function clearSvg(svg){ while(svg.firstChild) svg.removeChild(svg.firstChild); }
     function makeEl(svg, tag, attrs){
       const el = document.createElementNS(NS, tag);
       for(const k in attrs){
@@ -231,49 +359,100 @@
     function drawChart(data){
       const svg = document.getElementById("chartSvg");
       clearSvg(svg);
+
       const name = document.getElementById("name").value.trim() || "Consultant";
       const place = document.getElementById("place").value.trim();
       const date = document.getElementById("date").value;
       const time = document.getElementById("time").value;
       const rot = parseFloat(document.getElementById("rot").value || "90");
-      const fs = parseFloat(document.getElementById("fs").value || "13");
-      const cx = 400, cy = 400;
+      const fontSize = parseFloat(document.getElementById("fontSize").value || "13");
+      const glyphSize = parseFloat(document.getElementById("glyphSize").value || "22");
 
-      makeEl(svg, "rect", { x:0, y:0, width:800, height:800, fill:"#05060a" });
-      makeEl(svg, "image", { href:BG_URL, x:0, y:0, width:800, height:800, opacity:0.95 });
-      makeEl(svg, "circle", { cx, cy, r:16, fill:"#facc15", stroke:"#fbbf24", "stroke-width":3 });
-      makeEl(svg, "circle", { cx, cy, r:270, fill:"none", stroke:"rgba(255,255,255,.14)", "stroke-width":1 });
-      makeEl(svg, "circle", { cx, cy, r:340, fill:"none", stroke:"rgba(255,255,255,.10)", "stroke-width":1 });
+      const cx = 450, cy = 450;
 
-      data.forEach(p => {
+      makeEl(svg,"rect",{x:0,y:0,width:900,height:900,fill:"#060914"});
+      makeEl(svg,"image",{href:BG_URL,x:0,y:0,width:900,height:900,opacity:"1"});
+
+      data.forEach((p, index) => {
         const ang = (p.lon + rot) * Math.PI / 180;
-        const r = 270;
+        const spread = (index % 4) * 14;
+        const r = 255 - spread;
         const x = cx + r * Math.cos(ang);
         const y = cy - r * Math.sin(ang);
-        makeEl(svg, "line", { x1:cx, y1:cy, x2:x, y2:y, stroke:"rgba(255,255,255,.20)", "stroke-width":1 });
-        makeEl(svg, "circle", { cx:x, cy:y, r:6, fill:p.color, stroke:"#020617", "stroke-width":1 });
 
-        const txr = 355;
-        const tx = cx + txr * Math.cos(ang);
-        const ty = cy - txr * Math.sin(ang);
-        const t = makeEl(svg, "text", {
-          x:tx, y:ty, fill:"#f5f5f7", "font-size":fs, "text-anchor":"middle", "dominant-baseline":"middle"
+        const lx = cx + (300 - spread) * Math.cos(ang);
+        const ly = cy - (300 - spread) * Math.sin(ang);
+
+        makeEl(svg,"line",{
+          x1:cx,y1:cy,x2:x,y2:y,
+          stroke:"rgba(255,255,255,.16)",
+          "stroke-width":"1"
         });
-        t.textContent = p.name + (p.retrograde ? " ℞" : "");
+
+        makeEl(svg,"circle",{
+          cx:x,cy:y,r:15,
+          fill:"#08101f",
+          stroke:p.color,
+          "stroke-width":"2.5"
+        });
+
+        const glyph = makeEl(svg,"text",{
+          x:x,y:y+1,
+          fill:p.color,
+          "font-size":glyphSize,
+          "text-anchor":"middle",
+          "dominant-baseline":"middle",
+          "font-family":"Segoe UI Symbol, Arial Unicode MS, serif"
+        });
+        glyph.textContent = p.glyph;
+
+        const label = makeEl(svg,"text",{
+          x:lx,y:ly,
+          fill:"#ffffff",
+          "font-size":fontSize,
+          "text-anchor":"middle",
+          "dominant-baseline":"middle"
+        });
+        label.textContent = p.name;
       });
 
-      const sub = [date ? date.split("-").reverse().join("/") : "", time, place].filter(Boolean).join(" • ");
-      const t1 = makeEl(svg, "text", { x:400, y:690, fill:"#fff", "font-size":16, "font-weight":"800", "text-anchor":"middle" });
+      const t1 = makeEl(svg,"text",{
+        x:450,y:818,
+        fill:"#fff",
+        "font-size":"16",
+        "font-weight":"700",
+        "text-anchor":"middle"
+      });
       t1.textContent = name;
-      const t2 = makeEl(svg, "text", { x:400, y:714, fill:"#d1d5db", "font-size":12, "text-anchor":"middle" });
-      t2.textContent = sub;
+
+      const t2 = makeEl(svg,"text",{
+        x:450,y:842,
+        fill:"#cfd6e6",
+        "font-size":"12",
+        "text-anchor":"middle"
+      });
+      t2.textContent = [date ? date.split("-").reverse().join("/") : "", time, place].filter(Boolean).join(" • ");
     }
 
     function renderTable(data){
       const table = document.getElementById("planetTable");
-      let html = "<tr><th>Corps</th><th>Position</th><th>Longitude</th><th>Rétro</th></tr>";
+      let html = `
+        <tr>
+          <th>Corps</th>
+          <th>Glyphe</th>
+          <th>Position</th>
+          <th>Longitude</th>
+        </tr>
+      `;
       data.forEach(p => {
-        html += `<tr><td><b>${p.name}</b></td><td>${degToSign(p.lon)}</td><td>${p.lon.toFixed(2)}°</td><td>${p.retrograde ? "Oui" : "Non"}</td></tr>`;
+        html += `
+          <tr>
+            <td><b>${p.name}</b></td>
+            <td style="font-family:Segoe UI Symbol, Arial Unicode MS, serif;color:${p.color};font-size:20px;">${p.glyph}</td>
+            <td>${degToSign(p.lon)}</td>
+            <td>${p.lon.toFixed(2)}°</td>
+          </tr>
+        `;
       });
       table.innerHTML = html;
     }
@@ -282,7 +461,7 @@
       const svg = document.getElementById("chartSvg");
       if(!svg.firstChild) return;
       const source = new XMLSerializer().serializeToString(svg);
-      const blob = new Blob(['<?xml version="1.0"?>\n' + source], { type:"image/svg+xml;charset=utf-8" });
+      const blob = new Blob(['<?xml version="1.0"?>\\n' + source], {type:"image/svg+xml;charset=utf-8"});
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
@@ -293,32 +472,24 @@
       URL.revokeObjectURL(url);
     }
 
-    async function runChart(){
+    function runChart(){
       const date = document.getElementById("date").value;
       const time = document.getElementById("time").value || "12:00";
       const tz = document.getElementById("tz").value || "+01:00";
-      const apiUrl = document.getElementById("apiUrl").value.trim();
       const status = document.getElementById("statusText");
-      if(!date){ alert("Renseigne la date."); return; }
 
-      try{
-        let data;
-        if(apiUrl){
-          status.textContent = "Connexion à l’API d’éphémérides…";
-          data = await fetchApiPositions(apiUrl, date, time, tz);
-          status.textContent = "Positions planétaires récupérées via API.";
-        } else {
-          throw new Error("Pas d’API renseignée");
-        }
-        drawChart(data);
-        renderTable(data);
-      } catch(err){
-        const dt = localToUTC(date, time, tz);
-        const data = demoPositions(dt);
-        drawChart(data);
-        renderTable(data);
-        status.textContent = "Mode démo actif : API absente ou indisponible.";
+      if(!date){
+        alert("Renseigne la date.");
+        return;
       }
+
+      const dt = localToUTC(date, time, tz);
+      const data = demoPositions(dt);
+
+      drawChart(data);
+      renderTable(data);
+
+      status.textContent = "Carte générée avec fond zodiacal SVG exact et planètes placées dynamiquement.";
     }
 
     document.getElementById("runBtn").addEventListener("click", runChart);
@@ -326,10 +497,8 @@
 
     (function init(){
       const now = new Date();
-      const yyyy = now.getFullYear();
-      const mm = String(now.getMonth() + 1).padStart(2, "0");
-      const dd = String(now.getDate()).padStart(2, "0");
-      document.getElementById("date").value = `${yyyy}-${mm}-${dd}`;
+      document.getElementById("date").value =
+        `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,"0")}-${String(now.getDate()).padStart(2,"0")}`;
       runChart();
     })();
   </script>
