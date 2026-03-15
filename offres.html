@@ -3,89 +3,93 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>HeliosAstro — Offres astrologiques</title>
-  <meta name="description" content="Offres HeliosAstro : transit astrologique, révolution solaire, export SVG et analyses personnalisées." />
-  <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://heliosastro.com/offres.html" />
-  <meta property="og:image" content="https://heliosastro.com/images/og-image.jpg" />
+  <title>HeliosAstro — Offres</title>
+  <meta name="description" content="Offres HeliosAstro." />
+  <meta property="og:image" content="images/og-image.jpg" />
   <style>
     :root{
-      --bg:#05060a; --panel:#0f1322; --panel2:#0b0e18; --text:#f5f5f7; --muted:#a4acba;
-      --gold:#ffb300; --gold2:#ffda6b;
+      --bg:#07090f;--bg2:#0e1426;--panel:#111728;--panel2:#0b1020;
+      --line:rgba(255,255,255,.10);--text:#f5f7fb;--muted:#aab3c5;
+      --gold:#ffb24b;--gold2:#ffdd8f;--shadow:0 20px 50px rgba(0,0,0,.35);
+      --radius:24px;--max:1180px
     }
     *{box-sizing:border-box}
-    body{margin:0;font-family:Segoe UI,Arial,sans-serif;background:radial-gradient(circle at top,#1a2040 0%,#05060a 55%);color:var(--text)}
+    body{margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--text);background:linear-gradient(180deg,var(--bg2),var(--bg))}
     a{text-decoration:none;color:inherit}
-    .wrap{max-width:1100px;margin:0 auto;padding:0 18px}
-    .topbar{background:rgba(5,6,10,.82);border-bottom:1px solid rgba(255,255,255,.06)}
+    .wrap{max-width:var(--max);margin:0 auto;padding:0 18px}
+    .topbar{background:rgba(7,9,15,.95);border-bottom:1px solid rgba(255,255,255,.06)}
     .nav{display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap;padding:14px 0}
     .brand{display:flex;align-items:center;gap:14px}
-    .brand img{width:72px;height:72px;border-radius:16px;object-fit:contain;background:#000;padding:6px}
-    .brand-text b{display:block;font-size:24px;letter-spacing:.14em;text-transform:uppercase;line-height:1}
-    .brand-text span{display:block;margin-top:6px;color:var(--muted);font-size:12px}
-    .menu{display:flex;gap:14px;flex-wrap:wrap}
-    .menu a{color:#ffda6b;font-weight:800;font-size:14px}
-    h1{font-size:40px;margin:30px 0 12px}
-    p{color:#a4acba;line-height:1.7}
-    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin:26px 0}
-    .card{background:linear-gradient(180deg,rgba(15,19,34,.96),rgba(11,14,24,.93));border:1px solid rgba(255,255,255,.10);border-radius:20px;padding:22px}
-    .tag{font-size:12px;color:#ffda6b;font-weight:800;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px}
-    h2{margin:0 0 8px;font-size:24px}
-    .price{font-size:34px;font-weight:900;margin:0 0 10px}
-    .btn{display:inline-block;margin-top:16px;padding:13px 18px;border-radius:999px;font-weight:900;background:#ffb300;color:#111}
-    @media (max-width:900px){.grid{grid-template-columns:1fr}.brand img{width:62px;height:62px}}
+    .site-logo{width:74px;height:74px;object-fit:contain;border-radius:18px;background:#000;border:1px solid rgba(255,255,255,.12);padding:6px}
+    .brand-title{font-size:26px;font-weight:900;letter-spacing:.12em;text-transform:uppercase}
+    .brand-sub{font-size:12px;color:var(--muted)}
+    .menu{display:flex;gap:16px;flex-wrap:wrap}
+    .menu a{color:var(--gold2);font-weight:800;font-size:14px}
+    .hero{padding:34px 0 18px}
+    .hero h1{font-size:42px;margin:0 0 10px}
+    .hero p{margin:0;color:var(--muted)}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:20px}
+    .offer{background:linear-gradient(180deg,var(--panel),var(--panel2));border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:22px}
+    .offer h3{font-size:24px;margin:0 0 10px}
+    .offer p{color:var(--muted);line-height:1.7}
+    .price{font-size:34px;font-weight:900;margin-bottom:10px;color:var(--gold2)}
+    footer{margin-top:30px;padding:26px 0 36px;color:#8e97aa;text-align:center;border-top:1px solid rgba(255,255,255,.06)}
+    @media (max-width:980px){.grid{grid-template-columns:1fr}}
   </style>
 </head>
 <body>
+
   <div class="topbar">
     <div class="wrap">
       <div class="nav">
         <div class="brand">
-          <img src="images/logo-heliosastro.png" alt="Logo HeliosAstro">
-          <div class="brand-text">
-            <b>HeliosAstro</b>
-            <span>Astrologie héliocentrique • Géométrie sacrée • Analyse avancée</span>
+          <img src="./logo-heliosastro.png" alt="Logo HeliosAstro" class="site-logo">
+          <div>
+            <div class="brand-title">HeliosAstro</div>
+            <div class="brand-sub">Astrologie héliocentrique • Géométrie sacrée • Analyse avancée</div>
           </div>
         </div>
-        <div class="menu">
+
+        <nav class="menu">
           <a href="index.html">Accueil</a>
           <a href="logiciel.html">Logiciel</a>
+          <a href="offres.html">Offres</a>
           <a href="livre.html">Livre</a>
           <a href="contact.html">Contact</a>
-        </div>
+        </nav>
       </div>
     </div>
   </div>
 
-  <div class="wrap">
-    <h1>Offres astrologiques</h1>
-    <p>Choisis l’analyse qui correspond à ton besoin.</p>
+  <section class="hero">
+    <div class="wrap">
+      <h1>Offres</h1>
+      <p>Une présentation lisible et professionnelle des prestations HeliosAstro.</p>
 
-    <div class="grid">
-      <div class="card">
-        <div class="tag">Analyse</div>
-        <h2>Transit astrologique</h2>
-        <div class="price">25€</div>
-        <p>Étude des influences planétaires sur les 3 prochains mois.</p>
-        <a class="btn" href="https://www.paypal.com/ncp/payment/Z3SZPE6NUZYKG" target="_blank" rel="noopener">Commander — 25€</a>
-      </div>
+      <div class="grid">
+        <article class="offer">
+          <h3>Transit astrologique</h3>
+          <div class="price">25€</div>
+          <p>Étude ciblée des influences planétaires sur les 3 prochains mois.</p>
+        </article>
 
-      <div class="card">
-        <div class="tag">Analyse annuelle</div>
-        <h2>Révolution solaire</h2>
-        <div class="price">35€</div>
-        <p>Lecture astrologique complète de l’année à venir.</p>
-        <a class="btn" href="https://www.paypal.com/ncp/payment/7HTYFEY8JA8EN" target="_blank" rel="noopener">Commander — 35€</a>
-      </div>
+        <article class="offer">
+          <h3>Révolution solaire</h3>
+          <div class="price">35€</div>
+          <p>Lecture annuelle complète autour du retour solaire et des grandes tendances.</p>
+        </article>
 
-      <div class="card">
-        <div class="tag">Graphique</div>
-        <h2>Export SVG</h2>
-        <div class="price">5€</div>
-        <p>Export haute définition de votre carte astrologique.</p>
-        <a class="btn" href="https://www.paypal.com/ncp/payment/VQHAY46ZZU2YN" target="_blank" rel="noopener">Télécharger — 5€</a>
+        <article class="offer">
+          <h3>Export graphique</h3>
+          <div class="price">5€</div>
+          <p>Sortie visuelle pour présentation, impression ou partage de carte.</p>
+        </article>
       </div>
     </div>
-  </div>
+  </section>
+
+  <footer>© HeliosAstro</footer>
+
 </body>
 </html>
+
